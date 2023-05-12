@@ -1,6 +1,7 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import styles from "./_app.module.css";
 import { Provider as PersonContextProvider } from "@/store/PersonContext";
