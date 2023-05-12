@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePerson } from "@/store/PersonContext";
+import StepZero from "@/components/onboarding/stepZero";
 import StepOne from "@/components/onboarding/stepOne";
 import StepTwo from "@/components/onboarding/stepTwo";
 import StepThree from "../components/onboarding/stepThree";
@@ -8,7 +9,7 @@ import styles from "./index.module.css";
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [person, setPerson] = usePerson();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [greetingsText, setGreetingsText] = useState<string>("");
   const [introText, setIntroText] = useState<string>("");
 
@@ -54,6 +55,7 @@ const Home = () => {
   return (
     <div className="max-w-2xl mx-auto main bg-olive p-7">
       <img src="logo.svg" className={styles.logo} />
+      {currentStep === 0 && <StepZero setLanguage={handleNextStep} />}
       {currentStep === 1 && <StepOne setName={setName} loading={loading} />}
       {currentStep === 2 && (
         <StepTwo
