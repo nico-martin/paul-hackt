@@ -9,9 +9,9 @@ import { Button } from '@theme';
 const Home: NextPage = () => {
   const router = useRouter();
   const [person, _] = usePerson();
-  const [workInformation, setWorkInformation] = useState();
-  const [questionValue, setQuestionValue] = useState();
-  const [questionAnswer, setQuestionAnswer] = useState();
+  const [workInformation, setWorkInformation] = useState<{ message: string, question: { text: string, options: Array<{ value: string, text: string }> } }>();
+  const [questionValue, setQuestionValue] = useState<string>();
+  const [questionAnswer, setQuestionAnswer] = useState<{additionalText: string, message: string}>();
 
   useEffect(() => {
     if (!router.query.id) {
