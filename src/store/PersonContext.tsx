@@ -9,13 +9,15 @@ enum MOOD {
 interface Person {
   name: string;
   age: number;
+  isGrownUp: boolean;
   visited: Array<number>;
   mood: MOOD;
 }
 
 const defaultValues: Person = {
-  name: "Nico",
+  name: "",
   age: 5,
+  isGrownUp: false,
   visited: [],
   mood: null,
 };
