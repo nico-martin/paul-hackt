@@ -1,10 +1,11 @@
 import React from 'react';
 import { usePerson } from '@/store/PersonContext';
 
+
 const StepTwo = () => {
   const [person, setPerson] = usePerson();
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = (event:any) => {
     const { checked } = event.target;
     setPerson({
       ...person,
