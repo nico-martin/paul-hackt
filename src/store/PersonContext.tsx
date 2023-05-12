@@ -15,7 +15,7 @@ interface Person {
 
 const defaultValues: Person = {
   name: "Nico",
-  age: null,
+  age: 5,
   visited: [],
   mood: null,
 };
@@ -41,8 +41,13 @@ export const Provider = ({ children }: { children: any }) => {
 
 export const usePerson = (): [
   state: Person,
-  setState: React.Dispatch<React.SetStateAction<Person>>
+  setState: (person: Partial<Person>) => void
 ] => {
   const { person, setPerson } = React.useContext<ContextInterface>(Context);
-  return [person, setPerson];
+
+  const set = (person: Partial<Person>) => {
+    setPerson((oldPersion) => ({ ...oldPersion, ...person }));
+  };
+
+  return [person, set];
 };

@@ -3,12 +3,12 @@ import { Card } from "@theme";
 import { usePerson } from "@/store/PersonContext";
 
 const Scanning: NextPage = () => {
-  const [person] = usePerson();
-
+  const [person, setPerson] = usePerson();
   return (
-    <Card>
-      <p>Scanning {person.name}</p>
-    </Card>
+    <div>
+      {person.name} / {person.age}{" "}
+      <button onClick={() => setPerson({ age: 10 })}>change age</button>
+    </div>
   );
 };
 
