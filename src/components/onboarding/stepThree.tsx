@@ -17,6 +17,11 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
   const router = useRouter();
   return (
     <div>
+      <p className="font-bold text-heading text-teal">
+        Paul Klee Rundgang mit LiLi
+      </p>
+
+      <div className="w-full h-1 my-12 bg-teal"></div>
       <p>{text}</p>
       {done && (
         <div className="mt-4">
