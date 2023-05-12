@@ -10,20 +10,20 @@ const StepOne = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <p className="mb-4">
-        Hallo, ich bin Lilly. Verrätst du mir deinen Namen?
-      </p>
-      <label className="mb-4">
-        <input
-          type="text"
-          name="name"
-          value={person.name || ""}
-          onChange={handleInputChange}
-          className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
-        />
-      </label>
-    </div>
+      <div className="">
+        <p className="mb-4 text-lg font-bold">
+        Ich bin Lilly, wie heisst du??
+        </p>
+        <label className="mb-4">
+          <input
+            type="text"
+            name="name"
+            value={person.name || ""}
+            onChange={handleInputChange}
+            className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
+          />
+        </label>
+      </div>
   );
 };
 
