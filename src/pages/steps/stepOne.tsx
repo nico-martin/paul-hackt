@@ -25,15 +25,20 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
         </p>
       ))}
       {intros.done && (
-        <label className="mb-4">
-          <input
-            type="text"
-            name="name"
-            value=""
-            onChange={handleInputChange}
-            className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
-          />
-        </label>
+        <React.Fragment>
+          <label className="mb-4">
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleInputChange}
+              className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
+            />
+          </label>{" "}
+          <button className="button" onClick={() => passName(name)}>
+            Next Step
+          </button>
+        </React.Fragment>
       )}
       <button className={buttonStyles.button} onClick={() => passName(name)}>Next Step</button>
     </div>
