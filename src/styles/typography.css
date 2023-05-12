@@ -90,5 +90,6 @@ p.success {
 
 a,
 button {
-  color: var(--c-p);
+  color: var(--c-teal);
+  font-family: var(--font-heading);
 }
