@@ -24,7 +24,9 @@ const StepOne: React.FC<{
       <div className="w-full h-1 my-12 bg-teal"></div>
 
       {languageIsSet ?
-        <p>hello</p>
+        <p className="text-teal text-heading h2">
+          Danke vielmals, auf zur nächsten Frage!
+        </p>
         :
         <div>
           <Button className="!mb-4" full onClick={() => waitASecondAndThenSwitch()}>
