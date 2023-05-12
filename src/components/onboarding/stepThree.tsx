@@ -14,9 +14,9 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
     <div>
       <p>{text}</p>
       {done && (
-        <div>
+        <div className="mt-4">
           <p>Jetzt gehts in die Ausstellung!</p>
-          <Button>Starten</Button>
+          <Button className="mt-4">Starten</Button>
         </div>
       )}
     </div>
