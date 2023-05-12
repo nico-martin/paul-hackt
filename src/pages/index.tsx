@@ -3,6 +3,8 @@ import { usePerson } from "@/store/PersonContext";
 import StepOne from "@/pages/steps/stepOne";
 import StepTwo from "@/pages/steps/stepTwo";
 import StepThree from "./steps/stepThree";
+import styles from "./index.module.css";
+import cn from "@common/classnames";
 
 const Home = () => {
   const [person, setPerson] = usePerson();
@@ -22,7 +24,8 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className={cn(styles.root)}>
+      <img src="logo.svg" className={styles.logo} />
       {currentStep === 1 && <StepOne />}
       {currentStep === 2 && <StepTwo />}
       {currentStep === 3 && <StepThree />}
