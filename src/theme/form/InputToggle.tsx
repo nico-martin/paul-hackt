@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import styles from './InputToggle.module.css';
+import inputToggleStyles from './InputToggle.module.css';
 
 interface ToggleProps {
   checked: boolean;
@@ -9,14 +9,14 @@ interface ToggleProps {
 
 const Toggle: React.FC<ToggleProps> = ({ checked, onChange, label }) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const checked  = event.target.value == "on" ? true : false;
+    const checked  = event.target.checked;
     onChange(checked);
   };
 
   return (
-    <label className="switch">
+    <label className={inputToggleStyles.switch}>
       <input type="checkbox" checked={checked} onChange={handleInputChange} />
-      <span className="slider round"></span>
+      <span className={inputToggleStyles.slider +" "+ inputToggleStyles.round}></span>
       {label}
     </label>
   );
