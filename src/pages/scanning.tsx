@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 import styles from "./scanning.module.css";
 import { CREATIONS, URL } from "@common/constants";
 import { SCANNER_TYPES, useScanner } from "@/store/ScannerContext";
+import { useTextToSpeech } from "@/store/TextToSpeechContext";
 
 const Scanning: NextPage = () => {
   const { type, nfcReader } = useScanner();
   const router = useRouter();
-
+  const { readText } = useTextToSpeech();
   React.useEffect(() => {
     if (nfcReader) {
       nfcReader.onreadingerror = (e) => console.log(e);
@@ -36,6 +37,16 @@ const Scanning: NextPage = () => {
     <div className={styles.root}>
       {type === SCANNER_TYPES.NONE ? (
         <div className={styles.notSupported}>
+          <button
+            onClick={() =>
+              readText(
+                "Der NFC Reader wird auf diesem Gerät nicht unterstützt. Bitte Wähle\n" +
+                  "ein Werk aus der Liste aus:"
+              )
+            }
+          >
+            read
+          </button>
           <p>
             Der NFC Reader wird auf diesem Gerät nicht unterstützt. Bitte Wähle
             ein Werk aus der Liste aus:
