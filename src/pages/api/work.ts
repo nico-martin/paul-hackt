@@ -15,6 +15,39 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
     adultPrompt: '',
     childPrompt:
       'Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».',
+    question: 'Magst du, wie die Natur im Bild verfremdet dargestellt wird?',
+    questionId: '1',
+    options: [
+      {
+        text: 'Nee Videos mag ich besser',
+        value: true,
+        prompt: {
+          text: 'Du magst also VIDEO besser. Verstehe ich wirklich gut. …',
+          prompt: `Nachfolgend ein paar Informationen über das schaffen von  «Paul Klee» als Musiker.
+Ergänze den Satz: «Paul Klee hat auch mit Filmen Experimente gemacht und ». Schreibe danach noch einen weiterne satz. Der Text ist für ein Kind, 14 Jahre alt. Der Text wird vom Audioguide in einem Museum gesprochen. Sprich als Audioguide.
+
+Hier die Information von Paul Klee als Musiker:
+
+Musik ist fester Bestandteil in Paul Klees Leben: Als Jugendlicher spielt er im Orchester der Stadt Bern Geige, später musiziert er regelmässig mit seiner Frau Lily und probt mit befreundeten Musiker:innen die Streichquartetten der Klassik und der Romantik. Paul Klee ist auch ein begeisterter Konzert- und Operngänger und baut sich eine ansehnliche Sammlung an Langspielplatten mit klassischer Musik auf. Auch in seiner Kunst nimmt Klee häufig Bezug auf Musik und viele seiner Bilder tragen Titel mit musikalischen Begriffen wie Klang, Rhythmus, Polyphonie oder Harmonie.
+`,
+        },
+      },
+      {
+        text: 'Passt schon',
+        value: false,
+        prompt: {
+          text: 'Freut mich, dass dir die Bilder gefallen.',
+          prompt: `Nachfolgend ein paar Informationen über das Schaffen von  «Paul Klee» als Sammler.
+Ergänze den Satz: «Er hat viel Inspiration für die Bilder aus seiner Sammlung genommen. ». Schreibe danach noch einen weiteren Satz. Der Text ist für ein Kind, 14 Jahre alt. Der Text wird vom Audioguide in einem Museum gesprochen. Die Sammlung sieht man nicht. Sprich als Audioguide.
+
+Hier die Information von Paul Klee als Sammler:
+
+## Sammler
+Die Natur fasziniert Paul Klee schon als Kind und Jugendlicher. Später bildet die Auseinandersetzung mit den Strukturen und Wachstumsprozessen der Natur die Grundlage seines künstlerischen Schaffens. Er sammelt Muscheln, Algen, Schneckenhäuser und Gesteine und legt ein grosses Herbarium an. Seine Naturaliensammlung bewahrt er jeweils im Atelier auf: Sie dient ihm als wichtige Inspirationsquelle und als Reflexionsraum kunsttheoretischer Überlegungen.
+`,
+        },
+      },
+    ],
   },
 ];
 
@@ -23,8 +56,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const name = req.query['name'] as string;
-  const isChild = Boolean(req.query['isChild']);
+  const isChild = req.query['isChild'] === 'true';
   const id = req.query['id'] as string;
+  const questionValue = req.query['questionValue'];
 
   const information = works.find((work) => work.id === id);
 
@@ -32,12 +66,36 @@ export default async function handler(
     res.status(404).send({});
   }
 
-  const output = await prompt(
-    (isChild ? information.childPrompt : information.adultPrompt).replaceAll(
-      '{name}',
-      name
-    ) + information.information
-  );
+  let promptText = '';
+  let additionalText = '';
 
-  return res.status(200).json({ message: output });
+  if (questionValue === undefined) {
+    promptText =
+      (isChild ? information.childPrompt : information.adultPrompt).replaceAll(
+        '{name}',
+        name
+      ) + information.information;
+  } else {
+    let option = information.options.find(
+      (option) => option.value === (questionValue === 'true')
+    );
+    promptText = option.prompt.prompt;
+    additionalText = option.prompt.text;
+  }
+
+  const output = await prompt(promptText, { name, isChild });
+
+  let question = undefined;
+  if (questionValue === undefined) {
+    question = {
+      text: information.question,
+      options: information.options,
+    };
+  }
+
+  return res.status(200).json({
+    additionalText,
+    message: output,
+    question,
+  });
 }
