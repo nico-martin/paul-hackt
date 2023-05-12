@@ -32,7 +32,7 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
               name="name"
               value={name}
               onChange={handleInputChange}
-              className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
+              className="p-8 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
             />
           </label>{" "}
           <button className="button" onClick={() => passName(name)}>
