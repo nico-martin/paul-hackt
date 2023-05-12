@@ -24,7 +24,7 @@ const Scanning: NextPage = () => {
     e.message.records.map((record) => {
       console.log(record);
       try {
-        const textDecoder = new TextDecoder(record.encoding);
+        const textDecoder = new TextDecoder();
         const message = textDecoder.decode(record.data);
         console.log(message);
         if (record.recordType === "url" && message.startsWith(URL)) {
