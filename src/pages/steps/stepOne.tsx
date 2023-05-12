@@ -1,6 +1,7 @@
 import React from "react";
 import { usePerson } from "@/store/PersonContext";
 import useTypewriter from "@common/useTypewriter";
+import buttonStyles from "@/theme/button/Button.module.css";
 
 const StepOne: React.FC<{ setName: (name: string) => void }> = ({
   setName: passName,
@@ -17,7 +18,7 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
   };
 
   return (
-    <div>
+    <div className="bg-olive p-7">
       {intros.messages.map((e, i) => (
         <p className="mb-4 text-lg font-bold" key={i}>
           {e}
@@ -31,14 +32,12 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
               name="name"
               value={name}
               onChange={handleInputChange}
-              className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
+              className="w-full p-8 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
             />
           </label>{" "}
-          <button className="button" onClick={() => passName(name)}>
-            Next Step
-          </button>
         </React.Fragment>
       )}
+      <button className={buttonStyles.button} onClick={() => passName(name)}>Next Step</button>
     </div>
   );
 };

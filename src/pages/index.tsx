@@ -7,7 +7,6 @@ import styles from "./index.module.css";
 import cn from "@common/classnames";
 import { Card } from "@/theme";
 import cardStyles from "@/theme/misc/card.module.css";
-import buttonStyles from "@/theme/button/Button.module.css";
 import { Loader } from "@theme";
 
 const Home = () => {
@@ -43,7 +42,7 @@ const Home = () => {
   };
 
   return (
-    <div className="main">
+    <div className="main ">
       <img src="logo.svg" className={styles.logo} />
       {loading ? (
         <Loader />

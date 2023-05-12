@@ -42,3 +42,11 @@
   --c-bkg-dark: #323232;
   --c-bkg-light: #454545;
 }
+
+.bg-olive {
+  background-color: var(--c-olive);
+}
+
+.bg-teal {
+  background-color: var(--c-teal);
+}
