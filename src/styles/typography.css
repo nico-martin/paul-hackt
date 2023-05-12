@@ -9,10 +9,8 @@
   --fs-msmall: 0.95rem;
   --fs-small: 0.8rem;
   --fs-xsmall: 0.7rem;
-  --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
-    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-heading: var(--font-family-heading);
+  --font: var(--font-family-body);
 }
 
 body {

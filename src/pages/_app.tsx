@@ -5,6 +5,10 @@ import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import styles from "./_app.module.css";
 import { Provider as PersonContextProvider } from "@/store/PersonContext";
+import { Quicksand, PT_Serif } from "next/font/google";
+
+const quicksand = Quicksand({ subsets: ["latin"] });
+const ptSerif = PT_Serif({ weight: ["400", "700"], subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,6 +21,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           key="viewport"
         />
         <meta name="robots" content="all" key="robots" />
+        <style>{`
+          html {
+            --font-family-heading: ${quicksand.style.fontFamily};
+            --font-family-body: ${ptSerif.style.fontFamily}; 
+          }
+        `}</style>
       </Head>
       <PersonContextProvider>
         <main className={styles.main}>
@@ -26,4 +36,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     </React.Fragment>
   );
 }
+
 export default MyApp;
