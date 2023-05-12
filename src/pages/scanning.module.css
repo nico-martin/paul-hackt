@@ -1,6 +1,6 @@
 .root {
   --tag-color: var(--c-gray-light);
-  --loader-color: var(--c-primary);
+  --loader-color: var(--c-teal);
   --loader-size: 70vmin;
   --icon-size: 20vmin;
 }
@@ -33,7 +33,7 @@
   height: var(--loader-size);
   width: var(--loader-size);
   transform: translateX(-50%) translateY(-50%);
-  opacity: 0.4;
+  opacity: 0.2;
 
   > .circle {
     --duration: 2s;

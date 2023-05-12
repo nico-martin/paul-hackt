@@ -7,3 +7,9 @@
 
 .button {
 }
+
+.text {
+  & > * + * {
+    margin-top: 2rem;
+  }
+}

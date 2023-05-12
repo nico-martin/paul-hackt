@@ -1,6 +1,6 @@
 import React from "react";
 
-enum SCANNER_TYPES {
+export enum SCANNER_TYPES {
   NFT = "nft",
   NONE = "none",
 }
@@ -26,7 +26,7 @@ export const Provider = ({ children }: { children: any }) => {
   const [nfcReader, setNfcReader] = React.useState<NDEFReader>(null);
 
   React.useEffect(() => {
-    if (!("NDEFReader" in window)) {
+    if (!"NDEFReader" in window) {
       setType(SCANNER_TYPES.NFT);
     } else {
       setType(SCANNER_TYPES.NONE);
@@ -34,9 +34,13 @@ export const Provider = ({ children }: { children: any }) => {
   }, []);
 
   const setUpScanner = async () => {
-    const nfc = new NDEFReader();
-    await nfc.scan();
-    setNfcReader(nfc);
+    if (type === SCANNER_TYPES.NONE) {
+      return;
+    } else {
+      const nfc = new NDEFReader();
+      await nfc.scan();
+      setNfcReader(nfc);
+    }
   };
 
   return (
@@ -44,4 +48,17 @@ export const Provider = ({ children }: { children: any }) => {
       {children}
     </Context.Provider>
   );
+};
+
+export const useScanner = (): {
+  type: SCANNER_TYPES;
+  setUpScanner: () => Promise<void>;
+  nfcReader: NDEFReader;
+} => {
+  const context = React.useContext(Context);
+  return {
+    type: context.type,
+    setUpScanner: context.setUpScanner,
+    nfcReader: context.nfcReader,
+  };
 };

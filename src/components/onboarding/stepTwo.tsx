@@ -11,38 +11,36 @@ const StepTwo: React.FC<{
 }> = ({ greetingsText, setIsChild, loading }) => {
   const [person, setPerson] = usePerson();
 
-  const {
-    messages: [text],
-    done,
-  } = useTypewriter([greetingsText]);
+  const { messages, done } = useTypewriter([
+    greetingsText,
+    "Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?",
+  ]);
 
   return (
     <div>
-      <div>{text}</div>
-      <br />
+      <div className={styles.text}>
+        {messages.map((m, i) => (
+          <p key={i}>{m}</p>
+        ))}
+      </div>
       {done && (
-        <div>
-          <p>
-            Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?
-          </p>
-          <div className={styles.buttons}>
-            <Button
-              className={styles.button}
-              onClick={() => setIsChild(true)}
-              disabled={loading}
-              loading={loading && person.isChild}
-            >
-              Ich bin ein Kind
-            </Button>
-            <Button
-              className={styles.button}
-              onClick={() => setIsChild(false)}
-              disabled={loading}
-              loading={loading && !person.isChild}
-            >
-              Ich bin Erwachsen
-            </Button>
-          </div>
+        <div className={styles.buttons}>
+          <Button
+            className={styles.button}
+            onClick={() => setIsChild(true)}
+            disabled={loading}
+            loading={loading && person.isChild}
+          >
+            Ich bin ein Kind
+          </Button>
+          <Button
+            className={styles.button}
+            onClick={() => setIsChild(false)}
+            disabled={loading}
+            loading={loading && !person.isChild}
+          >
+            Ich bin Erwachsen
+          </Button>
         </div>
       )}
     </div>
