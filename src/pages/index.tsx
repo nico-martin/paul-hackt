@@ -40,7 +40,7 @@ const Home = () => {
   };
 
   return (
-    <div className="main ">
+    <div className="main bg-olive p-7">
       <img src="logo.svg" className={styles.logo} />
       {loading ? (
         <Loader />
