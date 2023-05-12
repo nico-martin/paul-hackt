@@ -23,11 +23,15 @@ const Scanning: NextPage = () => {
     console.log(e.serialNumber);
     e.message.records.map((record) => {
       console.log(record);
-      const textDecoder = new TextDecoder(record.encoding);
-      const message = textDecoder.decode(record.data);
-      console.log(message);
-      if (record.recordType === "url" && message.startsWith(URL)) {
-        router.push(`creation/${message}`);
+      try {
+        const textDecoder = new TextDecoder(record.encoding);
+        const message = textDecoder.decode(record.data);
+        console.log(message);
+        if (record.recordType === "url" && message.startsWith(URL)) {
+          router.push(`creation/${message}`);
+        }
+      } catch (e) {
+        console.log(e);
       }
     });
     /*
