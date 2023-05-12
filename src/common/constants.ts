@@ -4,4 +4,4 @@ export const CREATIONS = {
   "ad-parnassum": "Ad Parnassum",
 };
 
-export const URL = "https://paul-hackt-6eft.vercel.app/creation/";
+export const URL = "paul-hackt // ";

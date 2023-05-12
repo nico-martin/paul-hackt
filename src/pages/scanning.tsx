@@ -27,8 +27,8 @@ const Scanning: NextPage = () => {
         const textDecoder = new TextDecoder();
         const message = textDecoder.decode(record.data);
         console.log(message);
-        if (record.recordType === "url" && message.startsWith(URL)) {
-          router.push(`creation/${message}`);
+        if (record.recordType === "text" && message.startsWith(URL)) {
+          router.push(`creation/${message.replace(URL, "")}`);
         }
       } catch (e) {
         console.log(e);
