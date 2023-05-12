@@ -1,8 +1,11 @@
 import Typesense from "typesense";
-import { getVector } from "./getVector.js";
+import { getVector } from "./getVector.mjs";
+import * as dotenv from "dotenv";
+import { data } from "./data.mjs";
 
-const { TYPESENSE_ADMIN_KEY, OPENAI_API_KEY, SBERT_API_KEY, TYPESENSE_URL } =
-  process.env;
+dotenv.config();
+
+const { TYPESENSE_ADMIN_KEY, OPENAI_API_KEY, TYPESENSE_URL } = process.env;
 
 let typesense = new Typesense.Client({
   nodes: [
@@ -15,15 +18,6 @@ let typesense = new Typesense.Client({
   apiKey: TYPESENSE_ADMIN_KEY,
   connectionTimeoutSeconds: 20,
 });
-
-const data = [
-  { id: "1", title: "Banana", text: "Banana" },
-  { id: "2", title: "Bonobo", text: "Bonobo" },
-  { id: "3", title: "Chimpanzee", text: "Chimpanzee" },
-  { id: "4", title: "Gorilla", text: "Gorilla" },
-  { id: "5", title: "Monkey", text: "Monkey" },
-  { id: "6", title: "Watermelon", text: "Watermelon" },
-];
 
 async function populateIndex({ indexName, API_URL, API_KEY, API_MODEL }) {
   const documents = [];
@@ -51,8 +45,21 @@ async function populateIndex({ indexName, API_URL, API_KEY, API_MODEL }) {
   console.log(results);
 }
 
-// OpenAI Embeddings API
-populateIndex({
-  indexName: "paulhackt",
-  API_KEY: OPENAI_API_KEY,
+const args = process.argv.slice(2);
+
+let importFlag = false;
+
+args.forEach((val, index) => {
+  switch (val) {
+    case "--import":
+      // OpenAI Embeddings API
+      populateIndex({
+        indexName: "paulhackt",
+        API_KEY: OPENAI_API_KEY,
+      });
+      break;
+    // Include other cases here
+    default:
+      console.log(`Sorry, I don't know what ${val} means.`);
+  }
 });
