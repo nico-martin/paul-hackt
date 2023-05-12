@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta name="robots" content="all" key="robots" />
         <style>{`
-          html {
+          html { 
             --font-family-heading: ${quicksand.style.fontFamily};
             --font-family-body: ${ptSerif.style.fontFamily}; 
           }
