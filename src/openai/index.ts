@@ -13,7 +13,7 @@ export default async (prompt: string) => {
             messages: [{ role: 'user', content: prompt }]
         });
         return response.data.choices?.[0].message?.content
-    } catch (e) {
+    } catch (e: any) {
         console.log(e.response.data);
     }
     return undefined
