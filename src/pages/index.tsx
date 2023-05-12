@@ -53,8 +53,8 @@ const Home = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto main bg-olive p-7">
-      <img src="logo.svg" className={styles.logo} />
+    <div className="h-screen max-w-2xl mx-auto main bg-olive p-7">
+      <img src="logo.svg" className={styles.logo + " " + "hidden"} />
       {currentStep === 0 && <StepZero setLanguage={handleNextStep} />}
       {currentStep === 1 && <StepOne setName={setName} loading={loading} />}
       {currentStep === 2 && (
