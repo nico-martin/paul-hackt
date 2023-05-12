@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import styles from './InputToggle.module.css';
 
 interface ToggleProps {
   checked: boolean;
