@@ -1,0 +1,14 @@
+.modalContent {
+  padding-bottom: var(--space-gutter);
+}
+
+.message {
+  margin-top: var(--space-gutter);
+}
+
+.buttonContainer {
+  margin-top: var(--space-gutter);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

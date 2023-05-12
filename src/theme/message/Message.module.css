@@ -1,0 +1,51 @@
+.message {
+  --message-color: var(--c-message-color);
+  --message-bkg: var(--c-message-bkg);
+
+  color: var(--c-p);
+  font-weight: bold;
+  padding: 1.5rem;
+  background-color: var(--message-bkg);
+  border-radius: var(--border-radius-card);
+  display: flex;
+  align-items: center;
+}
+
+.messageError {
+  --message-color: var(--c-message-color-error);
+  --message-bkg: var(--c-message-bkg-error);
+}
+
+.messageWarning {
+  --message-color: var(--c-message-color-warning);
+  --message-bkg: var(--c-message-bkg-warning);
+}
+
+.messageSuccess {
+  --message-color: var(--c-message-color-success);
+  --message-bkg: var(--c-message-bkg-success);
+}
+
+.iconWrapper {
+  background-color: var(--message-color);
+  display: block;
+  margin-right: 1.5rem;
+  width: 2em;
+  height: 2em;
+  position: relative;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.content {
+  flex-grow: 1;
+}

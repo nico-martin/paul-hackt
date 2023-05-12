@@ -1,0 +1,19 @@
+.icon {
+  display: inline-block;
+  line-height: 1;
+
+  svg {
+    text-align: center;
+    vertical-align: middle;
+    fill: currentColor;
+    height: 1em;
+    width: 1em;
+    display: block;
+  }
+}
+
+.isInline {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}

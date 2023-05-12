@@ -1,0 +1,39 @@
+.root {
+  --loader-size: 1em;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: calc(var(--loader-size) * 0.15);
+  animation: loader-dash 2s ease infinite, loader-rotate 2s linear infinite;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  margin-top: calc(var(--loader-size) * -0.5);
+  margin-left: calc(var(--loader-size) * -0.5);
+
+  &.isLarge {
+    --loader-size: 2em;
+  }
+}
+
+@keyframes loader-dash {
+  0% {
+    stroke-dasharray: 1, 95;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 85, 95;
+    stroke-dashoffset: -25;
+  }
+  100% {
+    stroke-dasharray: 85, 95;
+    stroke-dashoffset: -93;
+  }
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
