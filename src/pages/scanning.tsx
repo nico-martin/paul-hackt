@@ -5,7 +5,7 @@ import { usePerson } from "@/store/PersonContext";
 import { useRouter } from "next/router";
 
 import styles from "./scanning.module.css";
-import { CREATIONS } from "@common/constants";
+import { CREATIONS, URL } from "@common/constants";
 import { read } from "fs";
 const Scanning: NextPage = () => {
   const [supported, setSupported] = React.useState<boolean>(false);
@@ -21,7 +21,17 @@ const Scanning: NextPage = () => {
 
   const read = (e: NDEFReadingEvent) => {
     console.log(e.serialNumber);
+    e.message.records.map((record) => {
+      const textDecoder = new TextDecoder(record.encoding);
+      const message = textDecoder.decode(record.data);
+      console.log(message);
+      if (record.recordType === "url" && message.startsWith(URL)) {
+        router.push(`creation/${message}`);
+      }
+    });
+    /*
     for (const record of e.message.records) {
+      if()
       console.log(record);
       /*
       switch (record.recordType) {
@@ -34,8 +44,8 @@ const Scanning: NextPage = () => {
           break;
         default:
         // TODO: Handle other records with record data.
-      }*/
-    }
+      }
+    }*/
   };
 
   return (
