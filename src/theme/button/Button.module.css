@@ -1,5 +1,5 @@
 .root {
-  --c-button-background: var(--c-p);
+  --c-button-background: var(--c-teal);
   --c-button-color: #fff;
   display: inline-flex;
   cursor: pointer;
@@ -12,6 +12,7 @@
   text-decoration: none;
   margin: 0;
   outline: none;
+  font-weight: bold;
 
   &:focus {
     outline: 1px solid var(--c-primary);
@@ -155,12 +156,4 @@
 .color-red {
   --c-button-background: var(--c-red);
   --c-button-color: #fff;
-}
-
-.button {
-  background-color: var(--c-teal);
-  font-weight: bold;
-  color:#fff;
-  width: 100%;
-  padding: 10px;
 }
