@@ -5,6 +5,7 @@ import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import styles from "./_app.module.css";
 import { Provider as PersonContextProvider } from "@/store/PersonContext";
+import { Provider as ScannerContextProvider } from "@/store/ScannerContext";
 import { Quicksand, PT_Serif } from "next/font/google";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
@@ -29,9 +30,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         `}</style>
       </Head>
       <PersonContextProvider>
-        <main className={styles.main}>
-          <Component {...pageProps} />
-        </main>
+        <ScannerContextProvider>
+          <main className={styles.main}>
+            <Component {...pageProps} />
+          </main>
+        </ScannerContextProvider>
       </PersonContextProvider>
     </React.Fragment>
   );

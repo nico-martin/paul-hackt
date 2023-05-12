@@ -49,7 +49,7 @@ const Scanning: NextPage = () => {
             }}
           />
         </div>
-      ) : (
+      ) : type == SCANNER_TYPES.NFT ? (
         <React.Fragment>
           <Icon icon="nfc" className={styles.icon} />
           <div className={styles.loader}>
@@ -58,7 +58,7 @@ const Scanning: NextPage = () => {
             <div className={styles.circle} />
           </div>
         </React.Fragment>
-      )}
+      ) : null}
     </div>
   );
 };

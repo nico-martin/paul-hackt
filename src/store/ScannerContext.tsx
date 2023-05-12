@@ -26,7 +26,7 @@ export const Provider = ({ children }: { children: any }) => {
   const [nfcReader, setNfcReader] = React.useState<NDEFReader>(null);
 
   React.useEffect(() => {
-    if (!"NDEFReader" in window) {
+    if ("NDEFReader" in window) {
       setType(SCANNER_TYPES.NFT);
     } else {
       setType(SCANNER_TYPES.NONE);
