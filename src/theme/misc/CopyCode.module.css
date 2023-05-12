@@ -1,0 +1,38 @@
+.root {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+  border: 1px dashed var(--c-border-light);
+  background-color: var(--c-bkg-grey);
+  padding: 1em 4em 1em 1em;
+  border-radius: var(--border-radius-card);
+  font-size: var(--fs-small);
+  position: relative;
+  cursor: pointer;
+
+  .button {
+    position: absolute;
+    top: 50%;
+    right: 0.7em;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+    font-size: var(--fs-small);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &:hover {
+    .button {
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
