@@ -1,6 +1,7 @@
 import React from "react";
 import { usePerson } from "@/store/PersonContext";
 import useTypewriter from "@common/useTypewriter";
+import buttonStyles from "@/theme/button/Button.module.css";
 
 const StepOne: React.FC<{ setName: (name: string) => void }> = ({
   setName: passName,
@@ -34,7 +35,7 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
           />
         </label>
       )}
-      <button onClick={() => passName(name)}>Next Step</button>
+      <button className={buttonStyles.button} onClick={() => passName(name)}>Next Step</button>
     </div>
   );
 };
