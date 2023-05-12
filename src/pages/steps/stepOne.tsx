@@ -18,7 +18,7 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
   };
 
   return (
-    <div>
+    <div className="bg-olive p-7">
       {intros.messages.map((e, i) => (
         <p className="mb-4 text-lg font-bold" key={i}>
           {e}
@@ -32,12 +32,9 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
               name="name"
               value={name}
               onChange={handleInputChange}
-              className="p-8 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
+              className="w-full p-8 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
             />
           </label>{" "}
-          <button className="button" onClick={() => passName(name)}>
-            Next Step
-          </button>
         </React.Fragment>
       )}
       <button className={buttonStyles.button} onClick={() => passName(name)}>Next Step</button>
