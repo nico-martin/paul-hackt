@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { usePerson } from "@/store/PersonContext";
 import Toggle from "@/theme/form/InputToggle";
 import useTypewriter from "@common/useTypewriter";
+import { Button } from "@theme";
 
-const StepTwo: React.FC<{ greetingsText: string }> = ({ greetingsText }) => {
+const StepTwo: React.FC<{
+  greetingsText: string;
+  setIsChild: (idChild: boolean) => void;
+}> = ({ greetingsText, setIsChild }) => {
   const [person, setPerson] = usePerson();
   console.log(greetingsText);
   const {
@@ -11,25 +15,17 @@ const StepTwo: React.FC<{ greetingsText: string }> = ({ greetingsText }) => {
     done,
   } = useTypewriter([greetingsText]);
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setPerson({
-      ...person,
-      isGrownUp: checked,
-    });
-  };
-
   return (
     <div>
       <div>{text}</div>
       <br />
       {done && (
         <div>
-          <p>Are you a grown-up?</p>
-          <Toggle
-            checked={person.isGrownUp || false}
-            onChange={handleCheckboxChange}
-            label="Toggle"
-          />
+          <p>
+            Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?
+          </p>
+          <Button onClick={() => setIsChild(true)}>Ich bin ein Kind</Button>
+          <Button onClick={() => setIsChild(false)}>Ich bin Erwachsen</Button>
         </div>
       )}
     </div>

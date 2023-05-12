@@ -14,6 +14,7 @@ const Home = () => {
   const [person, setPerson] = usePerson();
   const [currentStep, setCurrentStep] = useState(1);
   const [greetingsText, setGreetingsText] = useState<string>("");
+  const [introText, setIntroText] = useState<string>("");
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
@@ -21,12 +22,27 @@ const Home = () => {
 
   const setName = (name: string) => {
     setPerson({ name });
-    handleNextStep();
     setLoading(true);
-    fetch(`/api/greetings?name=${person.name}`).then(async (response) => {
+    fetch(`/api/greetings?name=${name}`).then(async (response) => {
       const json = await response.json();
       setGreetingsText(json.message);
       setLoading(false);
+      handleNextStep();
+    });
+  };
+
+  const setIsChild = (isChild: boolean) => {
+    setPerson({ isChild });
+    setLoading(true);
+    fetch(
+      `/api/introduction?name=${person.name}&isChild=${
+        isChild ? "true" : "false"
+      }`
+    ).then(async (response) => {
+      const json = await response.json();
+      setIntroText(json.message);
+      setLoading(false);
+      handleNextStep();
     });
   };
 
@@ -40,17 +56,13 @@ const Home = () => {
   };
 
   return (
-    <div className="main bg-olive p-7">
+    <div className="max-w-2xl mx-auto main bg-olive p-7">
       <img src="logo.svg" className={styles.logo} />
-      {loading ? (
-        <Loader />
-      ) : (
-        <React.Fragment>
-          {currentStep === 1 && <StepOne setName={setName} />}
-          {currentStep === 2 && <StepTwo greetingsText={greetingsText} />}
-          {currentStep === 3 && <StepThree />}
-        </React.Fragment>
+      {currentStep === 1 && <StepOne setName={setName} loading={loading} />}
+      {currentStep === 2 && (
+        <StepTwo greetingsText={greetingsText} setIsChild={setIsChild} />
       )}
+      {currentStep === 3 && <StepThree />}
     </div>
   );
 };

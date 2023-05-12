@@ -1,11 +1,11 @@
 import React from "react";
-import { usePerson } from "@/store/PersonContext";
 import useTypewriter from "@common/useTypewriter";
-import buttonStyles from "@/theme/button/Button.module.css";
+import { Button } from "@theme";
 
-const StepOne: React.FC<{ setName: (name: string) => void }> = ({
-  setName: passName,
-}) => {
+const StepOne: React.FC<{
+  setName: (name: string) => void;
+  loading: boolean;
+}> = ({ setName: passName, loading }) => {
   const [name, setName] = React.useState<string>("");
   const intros = useTypewriter([
     "Hallo, ich bin Lilly",
@@ -32,12 +32,14 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
               name="name"
               value={name}
               onChange={handleInputChange}
-              className="w-full p-8 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
+              className="w-full p-4 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
             />
           </label>{" "}
         </React.Fragment>
       )}
-      <button className={buttonStyles.button} onClick={() => passName(name)}>Next Step</button>
+      <Button full onClick={() => passName(name)} loading={loading}>
+        Next Step
+      </Button>
     </div>
   );
 };

@@ -7,6 +7,7 @@ interface Props {
   appearance?: "button" | "none" | "light";
   icon?: IconNamesT;
   iconRight?: boolean;
+  full?: boolean;
   children?: JSX.Element | Array<JSX.Element> | string;
   useAnchor?: boolean;
   className?: string;
@@ -25,6 +26,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
       appearance = "button",
       icon = null,
       iconRight = false,
+      full = false,
       children = null,
       useAnchor = false,
       className = "",
@@ -54,6 +56,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
           [styles.isLoading]: loading,
           [styles.isDisabled]: disabled,
           [styles.hasNoPadding]: noPadding,
+          [styles.fullWidth]: full,
         }),
         disabled,
         ref,
