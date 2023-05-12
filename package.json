@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "import": "node CLI/typesense.mjs --import",
+    "db:import": "node CLI/typesense.mjs --import",
+    "db:purge": "node CLI/typesense.mjs --purge",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,6 +21,7 @@
     "focus-trap-react": "^10.1.2",
     "next": "13.4.2",
     "node-fetch": "^3.3.1",
+    "openai": "^3.2.1",
     "postcss": "8.4.23",
     "postcss-nested": "^6.0.1",
     "postcss-preset-env": "^8.3.2",
