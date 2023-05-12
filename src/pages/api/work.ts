@@ -20,7 +20,7 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
     options: [
       {
         text: 'Nee Videos mag ich besser',
-        value: true,
+        value: 'true',
         prompt: {
           text: 'Du magst also VIDEO besser. Verstehe ich wirklich gut. …',
           prompt: `Nachfolgend ein paar Informationen über das schaffen von  «Paul Klee» als Musiker.
@@ -34,7 +34,7 @@ Musik ist fester Bestandteil in Paul Klees Leben: Als Jugendlicher spielt er im 
       },
       {
         text: 'Passt schon',
-        value: false,
+        value: 'false',
         prompt: {
           text: 'Freut mich, dass dir die Bilder gefallen.',
           prompt: `Nachfolgend ein paar Informationen über das Schaffen von  «Paul Klee» als Sammler.
@@ -52,6 +52,46 @@ Die Natur fasziniert Paul Klee schon als Kind und Jugendlicher. Später bildet d
 
 Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...». Erwähne das Zentrum Paul Klee nicht.
 `,
+  },
+  {
+    id: 'story',
+    information: ``,
+    question:
+      'Wähle 2 Handpuppen aus und ich erfinde eine Geschichte speziell für dich!',
+    options: [
+      {
+        text: 'Dichter & Herr Tod',
+        value: 'Dichter',
+        prompt: {
+          text: '',
+          prompt: `Erzähle eine kurze lustige Geschichte mit drei Personen:
+* Paul Klees Puppe «Dichter» 
+* Paul Klees Puppe «Herr Tod» 
+* 12 jährigen {name} mit blauen Haaren
+
+Länge der geschichte sind kurze 300 Zeichen. Einfache Sprache.
+
+Beginne die Gechichte mit «Es ware einmal   ...»
+`,
+        },
+      },
+      {
+        text: 'Klee & Clown',
+        value: 'Klee',
+        prompt: {
+          text: '',
+          prompt: `Erzähle eine kurze lustige Geschichte mit drei Personen:
+* Paul Klees Puppe "Klee" 
+* Paul Klees Puppe «Clown» 
+* 12 jährigen {name} mit blauen Haaren
+
+Länge der geschichte sind kurze 300 Zeichen. Einfache Sprache.
+
+Beginne die Gechichte mit «Es ware einmal   ...»
+`,
+        },
+      },
+    ],
   },
 ];
 
@@ -74,22 +114,28 @@ export default async function handler(
   let additionalText = '';
 
   if (questionValue === undefined) {
-    promptText =
-      (isChild ? information.childPrompt : information.adultPrompt).replaceAll(
-        '{name}',
-        name
-      ) +
-      information.information +
-      information.endPrompt;
+    if (information.information) {
+      promptText =
+        (isChild
+          ? information.childPrompt
+          : information.adultPrompt
+        ).replaceAll('{name}', name) +
+        information.information +
+        information.endPrompt;
+    }
   } else {
     let option = information.options.find(
-      (option) => option.value === (questionValue === 'true')
+      (option) => option.value === questionValue
     );
-    promptText = option.prompt.prompt;
+    promptText = option.prompt.prompt.replaceAll('{name}', name);
     additionalText = option.prompt.text;
   }
 
-  const output = await prompt(promptText, { name, isChild });
+  let output = '';
+
+  if (information.information || questionValue) {
+    output = await prompt(promptText, { name, isChild });
+  }
 
   let question = undefined;
   if (questionValue === undefined) {
