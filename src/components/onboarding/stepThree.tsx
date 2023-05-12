@@ -4,14 +4,20 @@ import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
 import { useScanner } from "@/store/ScannerContext";
 import { useRouter } from "next/router";
+import { useTextToSpeech } from "@/store/TextToSpeechContext";
 
 const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
+  const { readText } = useTextToSpeech();
 
-  const {
-    messages: [text],
-    done,
-  } = useTypewriter([introText]);
+  const { messages, done } = useTypewriter([
+    introText,
+    "Jetzt gehts in die Ausstellung!",
+  ]);
+
+  React.useEffect(() => {
+    readText([introText, "Jetzt gehts in die Ausstellung!"].join(" "));
+  }, []);
 
   const { setUpScanner } = useScanner();
   const router = useRouter();
@@ -22,12 +28,13 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
       </p>
 
       <div className="w-full h-1 my-12 bg-teal"></div>
-      <p>{text}</p>
+      {messages.map((message, i) => (
+        <p className="mt-4" key={i}>
+          {message}
+        </p>
+      ))}
       {done && (
         <div className="mt-4">
-          <p>Jetzt gehts in die Ausstellung!</p>
-          <br />
-          <br />
           <Button
             className="mt-4"
             onClick={async () => {

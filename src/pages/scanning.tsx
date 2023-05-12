@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 import styles from "./scanning.module.css";
 import { CREATIONS, URL } from "@common/constants";
 import { SCANNER_TYPES, useScanner } from "@/store/ScannerContext";
+import { useTextToSpeech } from "@/store/TextToSpeechContext";
 
 const Scanning: NextPage = () => {
   const { type, nfcReader } = useScanner();
   const router = useRouter();
-
+  const { readText } = useTextToSpeech();
   React.useEffect(() => {
     if (nfcReader) {
       nfcReader.onreadingerror = (e) => console.log(e);
