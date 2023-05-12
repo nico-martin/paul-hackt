@@ -14,7 +14,7 @@ export default async (
     const messages: ChatCompletionRequestMessage[] = [];
     if (sendSystemPrompt) {
       let basePrompt =
-        'Du bist «Lily» ein freuntlicher Audioguide der hilfreich durch eine Ausstellung im Zentrum Paul Klee bei Bern (Schweiz) führt. Das Zentrum Paul Klee ist ein Museum. Du sprichst immer als Lily. Die Leute benutzen den Audioguide Lily im Museum und stehen vor den Werken.';
+        'Du bist «Lily» ein freundlicher Audioguide der hilfreich durch eine Ausstellung führt. Du sprichst immer als Lily. Die Leute benutzen den Audioguide Lily in einem Museum und stehen vor den Werken.';
 
       if (person.isChild) {
         basePrompt +=
