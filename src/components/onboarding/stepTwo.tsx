@@ -10,7 +10,6 @@ const StepTwo: React.FC<{
   loading: boolean;
 }> = ({ greetingsText, setIsChild, loading }) => {
   const [person, setPerson] = usePerson();
-  console.log({ loading, isChild: person.isChild });
 
   const {
     messages: [text],
