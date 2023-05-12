@@ -1,28 +1,43 @@
 import React from "react";
 import { usePerson } from "@/store/PersonContext";
+import useTypewriter from "@common/useTypewriter";
+import buttonStyles from "@/theme/button/Button.module.css";
 
-const StepOne = () => {
-  const [person, setPerson] = usePerson();
+const StepOne: React.FC<{ setName: (name: string) => void }> = ({
+  setName: passName,
+}) => {
+  const [name, setName] = React.useState<string>("");
+  const intros = useTypewriter([
+    "Hallo, ich bin Lilly",
+    "Verrätst du mir deinen Namen?",
+  ]);
 
   const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setPerson({ [name]: value });
+    const { value } = event.target;
+    setName(value);
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <p className="mb-4">
-        Hallo, ich bin Lilly. Verrätst du mir deinen Namen?
-      </p>
-      <label className="mb-4">
-        <input
-          type="text"
-          name="name"
-          value={person.name || ""}
-          onChange={handleInputChange}
-          className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
-        />
-      </label>
+    <div>
+      {intros.messages.map((e, i) => (
+        <p className="mb-4 text-lg font-bold" key={i}>
+          {e}
+        </p>
+      ))}
+      {intros.done && (
+        <React.Fragment>
+          <label className="mb-4">
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleInputChange}
+              className="w-full p-8 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
+            />
+          </label>{" "}
+        </React.Fragment>
+      )}
+      <button className={buttonStyles.button} onClick={() => passName(name)}>Next Step</button>
     </div>
   );
 };

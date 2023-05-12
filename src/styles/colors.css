@@ -11,6 +11,9 @@
   --c-red: #dc361a;
   --c-green: #69a226;
 
+  --c-olive: #B4D8C2;
+  --c-teal: #004E5F;
+
   --c-border: #999999;
   --c-border-dark: var(--c-black-light);
   --c-border-light: #cbcbcb;
@@ -38,4 +41,12 @@
   --c-bkg-grey: var(--c-light-grey);
   --c-bkg-dark: #323232;
   --c-bkg-light: #454545;
+}
+
+.bg-olive {
+  background-color: var(--c-olive);
+}
+
+.bg-teal {
+  background-color: var(--c-teal);
 }

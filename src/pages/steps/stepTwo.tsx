@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { usePerson } from '@/store/PersonContext';
-import Toggle from '@/theme/form/InputToggle';
+import React, { useEffect, useState } from "react";
+import { usePerson } from "@/store/PersonContext";
+import Toggle from "@/theme/form/InputToggle";
+import useTypewriter from "@common/useTypewriter";
 
-const StepTwo = () => {
+const StepTwo: React.FC<{ greetingsText: string }> = ({ greetingsText }) => {
   const [person, setPerson] = usePerson();
-  const [greetingsText, setGreetingsText] = useState();
+  console.log(greetingsText);
+  const {
+    messages: [text],
+    done,
+  } = useTypewriter([greetingsText]);
 
   const handleCheckboxChange = (checked: boolean) => {
     setPerson({
@@ -13,25 +18,20 @@ const StepTwo = () => {
     });
   };
 
-  useEffect(() => {
-    fetch(`/api/greetings?name=${person.name}`).then(async (response) => {
-      const json = await response.json();
-      setGreetingsText(json.message);
-    });
-  }, []);
-
   return (
     <div>
-      <div>{greetingsText}</div>
+      <div>{text}</div>
       <br />
-      <div>
-        <p>Are you a grown-up?</p>
-        <Toggle
-          checked={person.isGrownUp || false}
-          onChange={handleCheckboxChange}
-          label="Toggle"
-        />
-      </div>
+      {done && (
+        <div>
+          <p>Are you a grown-up?</p>
+          <Toggle
+            checked={person.isGrownUp || false}
+            onChange={handleCheckboxChange}
+            label="Toggle"
+          />
+        </div>
+      )}
     </div>
   );
 };

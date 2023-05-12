@@ -58,7 +58,9 @@ button,
 textarea,
 select {
   font: inherit;
+  border-radius: 10px;
 }
+
 
 /* Remove all animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
