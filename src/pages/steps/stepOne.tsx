@@ -10,10 +10,9 @@ const StepOne = () => {
   };
 
   return (
-    <div>
+    <div className='flex flex-col items-center'>
       <p className="mb-4">Hallo, ich bin Lilly. Verrätst du mir deinen Namen?</p>
         <label className="mb-4">
-          What is your name?
           <input
             type="text"
             name="name"
