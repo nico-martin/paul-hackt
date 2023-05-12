@@ -15,19 +15,15 @@ export const Provider = ({ children }: { children: any }) => {
   const [voices, setVoices] = React.useState<Array<SpeechSynthesisVoice>>([]);
 
   const getSelectedVoice = (): SpeechSynthesisVoice => {
-    return voices[0];
-    /*
-    const option = voiceSelect.selectedOptions[0];
-    return voices.find(
-      (voice) =>
-        voice.name === option.dataset.name && voice.lang === option.dataset.lang
-    );*/
+    return voices.filter((v) => v.lang === "de-CH")[0];
   };
 
   const readText = (text: string): void => {
     if (!synth) {
       return;
     }
+
+    synth.cancel();
 
     const msg = new SpeechSynthesisUtterance();
     msg.text = text;

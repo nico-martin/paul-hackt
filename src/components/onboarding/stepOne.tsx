@@ -1,6 +1,7 @@
 import React from "react";
 import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
+import { useTextToSpeech } from "@/store/TextToSpeechContext";
 
 const StepOne: React.FC<{
   setName: (name: string) => void;
@@ -8,14 +9,19 @@ const StepOne: React.FC<{
 }> = ({ setName: passName, loading }) => {
   const [name, setName] = React.useState<string>("");
   const intros = useTypewriter([
-    "Hallo, ich bin Lilly",
+    "Hallo, ich bin Lilly.",
     "Verrätst du mir deinen Namen?",
   ]);
+  const { readText } = useTextToSpeech();
 
   const handleInputChange = (event: any) => {
     const { value } = event.target;
     setName(value);
   };
+
+  React.useEffect(() => {
+    readText("Hallo, ich bin Lilly. Verrätst du mir deinen Namen?");
+  }, []);
 
   return (
     <div>

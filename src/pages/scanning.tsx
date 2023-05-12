@@ -37,16 +37,6 @@ const Scanning: NextPage = () => {
     <div className={styles.root}>
       {type === SCANNER_TYPES.NONE ? (
         <div className={styles.notSupported}>
-          <button
-            onClick={() =>
-              readText(
-                "Der NFC Reader wird auf diesem Gerät nicht unterstützt. Bitte Wähle\n" +
-                  "ein Werk aus der Liste aus:"
-              )
-            }
-          >
-            read
-          </button>
           <p>
             Der NFC Reader wird auf diesem Gerät nicht unterstützt. Bitte Wähle
             ein Werk aus der Liste aus:
