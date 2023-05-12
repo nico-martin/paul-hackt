@@ -22,6 +22,7 @@ const Scanning: NextPage = () => {
   const read = (e: NDEFReadingEvent) => {
     console.log(e.serialNumber);
     e.message.records.map((record) => {
+      console.log(record);
       const textDecoder = new TextDecoder(record.encoding);
       const message = textDecoder.decode(record.data);
       console.log(message);
