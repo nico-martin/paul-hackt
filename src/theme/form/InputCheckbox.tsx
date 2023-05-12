@@ -15,7 +15,13 @@ const InputCheckbox: React.FC<{
   classNameInput = '',
   onChange = () => ({}),
 }) => {
-  const checkboxRef = React.useRef<HTMLInputElement>();
+  const checkboxRef = React.useRef<HTMLInputElement>(null);
+
+  const handleCheckboxChange = () => {
+    const checked = checkboxRef.current?.checked ?? false;
+    onChange(checked);
+  };
+
   return (
     <React.Fragment>
       <input
@@ -25,7 +31,7 @@ const InputCheckbox: React.FC<{
         className={cn(styles.input)}
         type="checkbox"
         checked={Boolean(value)}
-        onChange={(e) => onChange((e.target as HTMLInputElement).checked)}
+        onChange={handleCheckboxChange}
         tabIndex={-1}
         ref={checkboxRef}
       />
@@ -34,9 +40,9 @@ const InputCheckbox: React.FC<{
         aria-checked={Boolean(value)}
         aria-labelledby={`label-${name}`}
         tabIndex={0}
-        onClick={() => checkboxRef.current && checkboxRef.current.click()}
+        onClick={handleCheckboxChange}
         onKeyUp={(e) => {
-          e.keyCode === 32 && onChange(!Boolean(value));
+          e.keyCode === 32 && handleCheckboxChange();
         }}
         className={cn(className, styles.spanInput, classNameInput, {
           [styles.isActive]: Boolean(value),
