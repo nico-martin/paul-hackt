@@ -89,7 +89,9 @@ export default async function handler(
   if (questionValue === undefined) {
     question = {
       text: information.question,
-      options: information.options,
+      options: information.options.map((option) => {
+        return { text: option.text, value: option.value };
+      }),
     };
   }
 
