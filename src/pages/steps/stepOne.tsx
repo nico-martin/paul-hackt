@@ -11,9 +11,6 @@ const StepOne = () => {
 
   return (
     <div>
-      <p style={{ fontFamily: "var(--font-family-heading)", fontSize: "40px" }}>
-        TEST
-      </p>
       <p className="mb-4">
         Hallo, ich bin Lilly. Verrätst du mir deinen Namen?
       </p>

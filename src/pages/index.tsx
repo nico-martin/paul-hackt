@@ -17,7 +17,7 @@ const Home = () => {
     if (currentStep === 1) {
       handleNextStep();
     } else if (currentStep === 2) {
-      handleNextStep()
+      handleNextStep();
     }
   };
 
