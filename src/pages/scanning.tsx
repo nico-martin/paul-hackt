@@ -19,7 +19,24 @@ const Scanning: NextPage = () => {
     setSupported(true);
   }, []);
 
-  const read = (e: NDEFReadingEvent) => console.log(e);
+  const read = (e: NDEFReadingEvent) => {
+    console.log(e.serialNumber);
+    for (const record of e.message.records) {
+      console.log(record);
+      /*
+      switch (record.recordType) {
+        case "text":
+          const textDecoder = new TextDecoder(record.encoding);
+          setMessage(textDecoder.decode(record.data));
+          break;
+        case "url":
+          // TODO: Read URL record with record data.
+          break;
+        default:
+        // TODO: Handle other records with record data.
+      }*/
+    }
+  };
 
   return (
     <div className={styles.root}>
@@ -49,6 +66,7 @@ const Scanning: NextPage = () => {
         </React.Fragment>
       ) : (
         <button
+          className={styles.scanButton}
           onClick={async () => {
             const nfc = new NDEFReader();
             await nfc.scan();
