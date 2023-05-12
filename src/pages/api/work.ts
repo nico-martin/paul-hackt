@@ -48,6 +48,10 @@ Die Natur fasziniert Paul Klee schon als Kind und Jugendlicher. Später bildet d
         },
       },
     ],
+    endPrompt: `---
+
+Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...». Erwähne das Zentrum Paul Klee nicht.
+`,
   },
 ];
 
@@ -74,7 +78,9 @@ export default async function handler(
       (isChild ? information.childPrompt : information.adultPrompt).replaceAll(
         '{name}',
         name
-      ) + information.information;
+      ) +
+      information.information +
+      information.endPrompt;
   } else {
     let option = information.options.find(
       (option) => option.value === (questionValue === 'true')
@@ -89,7 +95,9 @@ export default async function handler(
   if (questionValue === undefined) {
     question = {
       text: information.question,
-      options: information.options,
+      options: information.options.map((option) => {
+        return { text: option.text, value: option.value };
+      }),
     };
   }
 

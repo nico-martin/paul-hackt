@@ -1,9 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prompt from '../../openai';
 
-const basicChildPrompt = `Nachfolgend ein paar Informationen über Paul Klee. Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Erwähne, wie langweilig sonst Museen sind, aber im Zentrum «Zentrum Paul Klee» das vielleicht anders ist. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». `;
+const basicChildPrompt = `Nachfolgend ein paar Informationen über Paul Klee. Sandra kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Erwähne, wie langweilig sonst Museen sind, aber im Zentrum «Zentrum Paul Klee» das vielleicht anders ist. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily».`;
 
 const basicAdultPrompt = ``;
+
+const endPrompt = `---
+
+Beginne die Antwort mit «Das Leben von Paul Klee  ...». Erwähne das Zentrum Paul Klee nicht.
+`;
 
 const paulKleeInformation = `
 ---
@@ -39,7 +44,7 @@ export default async function handler(
     promptText += basicAdultPrompt;
   }
 
-  promptText += paulKleeInformation;
+  promptText += paulKleeInformation + endPrompt;
 
   const output = await prompt(
     promptText.replaceAll('{name}', name),
