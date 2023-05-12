@@ -1,0 +1,36 @@
+.root {
+}
+
+.bubble {
+  width: 3em;
+  height: 3em;
+  background-color: var(--c-message-bkg-disabled);
+  color: var(--c-message-color-disabled);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2000px;
+  border: 1px solid var(--c-message-color-disabled);
+}
+
+.bubbleSuccess {
+  background-color: var(--c-message-bkg-success);
+  color: var(--c-message-color-success);
+  border-color: var(--c-message-color-success);
+}
+
+.bubbleLoading {
+  background-color: var(--c-message-bkg);
+  color: var(--c-message-color);
+  border-color: var(--c-message-color);
+}
+
+.bubbleError {
+  background-color: var(--c-message-bkg-error);
+  color: var(--c-message-color-error);
+  border-color: var(--c-message-color-error);
+}
+
+.icon {
+  font-size: 1.5em;
+}
