@@ -9,7 +9,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const name = req.query['name'] as string;
-  const output = await prompt(promptText.replace('{name}', name), false);
+  const output = await prompt(
+    promptText.replace('{name}', name),
+    { name: name },
+    false
+  );
 
   return res.status(200).json({ message: output });
 }
