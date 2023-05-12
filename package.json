@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "import": "node CLI/typesense.mjs --import",
+    "db:import": "node CLI/typesense.mjs --import",
+    "db:purge": "node CLI/typesense.mjs --purge",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

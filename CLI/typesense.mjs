@@ -58,6 +58,17 @@ args.forEach((val, index) => {
         API_KEY: OPENAI_API_KEY,
       });
       break;
+    case "--purge":
+      let results = typesense
+        .collections("companies")
+        .documents()
+        .delete({ filter_by: "id:=1" })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => console.error(error));
+
+      break;
     // Include other cases here
     default:
       console.log(`Sorry, I don't know what ${val} means.`);
