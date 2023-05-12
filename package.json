@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "import": "node EXCHANGE/typesense.mjs --import",
+    "import": "node CLI/typesense.mjs --import",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
