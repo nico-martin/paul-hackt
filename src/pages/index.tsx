@@ -5,6 +5,9 @@ import StepTwo from "@/pages/steps/stepTwo";
 import StepThree from "./steps/stepThree";
 import styles from "./index.module.css";
 import cn from "@common/classnames";
+import { Card } from "@/theme";
+import cardStyles from "@/theme/misc/card.module.css";
+import buttonStyles from "@/theme/button/Button.module.css";
 
 const Home = () => {
   const [person, setPerson] = usePerson();
@@ -25,7 +28,7 @@ const Home = () => {
   };
 
   return (
-    <div className={cn(styles.root)}>
+    <div className="main">
       <img src="logo.svg" className={styles.logo} />
       {currentStep === 1 && <StepOne setName={(name) => {}} />}
       {currentStep === 2 && <StepTwo />}
