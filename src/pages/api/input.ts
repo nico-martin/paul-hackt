@@ -42,9 +42,9 @@ const search = async (vectors: number[]) => {
   let searchRequests: any = {
     searches: [
       {
-        collection: 'docs',
+        collection: 'paulhackt',
         q: '*',
-        vector_query: `vec:([${vectors.join(', ')}], k:1)`,
+        vector_query: `vector:([${vectors.join(', ')}], k:1)`,
       },
     ],
   };
