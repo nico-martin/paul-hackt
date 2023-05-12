@@ -8,6 +8,7 @@ import styles from "./scanning.module.css";
 import { CREATIONS } from "@common/constants";
 const Scanning: NextPage = () => {
   const [supported, setSupported] = React.useState<boolean>(false);
+  const [scanning, setScanning] = React.useState<boolean>(false);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -15,9 +16,6 @@ const Scanning: NextPage = () => {
       return;
     }
     setSupported(true);
-
-    const nfc = new NDEFReader();
-    nfc.scan().then((result) => {});
   }, []);
 
   return (
@@ -37,7 +35,7 @@ const Scanning: NextPage = () => {
             }}
           />
         </div>
-      ) : (
+      ) : scanning ? (
         <React.Fragment>
           <Icon icon="nfc" className={styles.icon} />
           <div className={styles.loader}>
@@ -46,6 +44,15 @@ const Scanning: NextPage = () => {
             <div className={styles.circle} />
           </div>
         </React.Fragment>
+      ) : (
+        <button
+          onClick={() => {
+            const nfc = new NDEFReader();
+            nfc.scan().then((result) => console.log(result));
+          }}
+        >
+          scan
+        </button>
       )}
     </div>
   );
