@@ -34,11 +34,7 @@ const Home = () => {
           form={form}
           onChange={handleCheckboxChange}
         >
-          <InputCheckbox
-            name="isGrownUp"
-            checked={isGrownUp}
-            onChange={handleCheckboxChange}
-          />
+
         </FormElement>
 
         {isGrownUp ? (
