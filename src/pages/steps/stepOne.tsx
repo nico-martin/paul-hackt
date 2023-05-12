@@ -19,7 +19,7 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
   };
 
   return (
-    <div className="bg-olive p-7">
+    <div>
       {intros.messages.map((e, i) => (
         <p className="mb-4 text-lg font-bold" key={i}>
           {e}
