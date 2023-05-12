@@ -3,13 +3,15 @@ import { usePerson } from "@/store/PersonContext";
 import Toggle from "@/theme/form/InputToggle";
 import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
-
+import styles from "./StepTwo.module.css";
 const StepTwo: React.FC<{
   greetingsText: string;
   setIsChild: (idChild: boolean) => void;
-}> = ({ greetingsText, setIsChild }) => {
+  loading: boolean;
+}> = ({ greetingsText, setIsChild, loading }) => {
   const [person, setPerson] = usePerson();
-  console.log(greetingsText);
+  console.log({ loading, isChild: person.isChild });
+
   const {
     messages: [text],
     done,
@@ -24,8 +26,24 @@ const StepTwo: React.FC<{
           <p>
             Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?
           </p>
-          <Button onClick={() => setIsChild(true)}>Ich bin ein Kind</Button>
-          <Button onClick={() => setIsChild(false)}>Ich bin Erwachsen</Button>
+          <div className={styles.buttons}>
+            <Button
+              className={styles.button}
+              onClick={() => setIsChild(true)}
+              disabled={loading}
+              loading={loading && person.isChild}
+            >
+              Ich bin ein Kind
+            </Button>
+            <Button
+              className={styles.button}
+              onClick={() => setIsChild(false)}
+              disabled={loading}
+              loading={loading && !person.isChild}
+            >
+              Ich bin Erwachsen
+            </Button>
+          </div>
         </div>
       )}
     </div>

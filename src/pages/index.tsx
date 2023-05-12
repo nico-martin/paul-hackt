@@ -60,7 +60,11 @@ const Home = () => {
       <img src="logo.svg" className={styles.logo} />
       {currentStep === 1 && <StepOne setName={setName} loading={loading} />}
       {currentStep === 2 && (
-        <StepTwo greetingsText={greetingsText} setIsChild={setIsChild} />
+        <StepTwo
+          greetingsText={greetingsText}
+          setIsChild={setIsChild}
+          loading={loading}
+        />
       )}
       {currentStep === 3 && <StepThree />}
     </div>

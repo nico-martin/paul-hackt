@@ -15,7 +15,7 @@ interface Person {
 
 const defaultValues: Person = {
   name: "",
-  isChild: false,
+  isChild: null,
   visited: [],
   mood: null,
 };

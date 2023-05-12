@@ -25,7 +25,7 @@
   color: var(--c-button-color);
   border: 1px solid var(--c-button-background);
   font-weight: bold;
-  border-radius: 100px;
+  border-radius: 10px;
 
   &:hover::before {
     opacity: 1;
