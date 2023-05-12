@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prompt from '../../openai'
+import prompt from '../../openai';
 
+const basicChildPrompt = `Nachfolgend ein paar Informationen über Paul Klee. Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Erwähne, wie langweilig sonst Museen sind, aber im Zentrum «Zentrum Paul Klee» das vielleicht anders ist. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». `;
 
-const basicChildPrompt = `Nachfolgend ein paar Informationen über Paul Klee. Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Erwähne, wie langweilig sonst Museen sind, aber im Zentrum «Zentrum Paul Klee» das vielleicht anders ist. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». `
-
-const basicAdultPrompt = ``
+const basicAdultPrompt = ``;
 
 const paulKleeInformation = `
 ---
@@ -23,26 +22,30 @@ Klee beginnt im April 1921 eine Stelle am Bauhaus in Weimar. Im Formunterricht e
 
 1932 – 1940 Das späte Schaffen
 Die politischen Veränderungen in Deutschland prägen nicht nur Paul Klees Biografie, sondern auch sein künstlerisches Schaffen. 1933 setzt er sich intensiv mit der sich verändernden Situation und kommentiert in einer Reihe von Zeichnungen die Stimmung der Unterdrückung und Gewalt. Noch im selben Jahr wird Klee aus seiner Anstellung entlassen, da er den Obrigkeiten nicht mehr genehm ist und auch sein Schaffen später als entartet bezeichnet wird. Mit Lily Klee und seiner Katze Bimbo emigriert er nach Bern. Eine bescheidene Dreizimmerwohnung mit zum Atelier umfunktioniertem Wohnzimmer wird Klees letzte Lebensstation. Der Neuanfang in Bern wird auch künstlerisch zur Herausforderung. Er knüpft an sein bisheriges Werk an, versucht aber immer konzentrierter und zeichenhafter zu arbeiten. 1935 erkrankt Klee an Sklerodermie. Bis zu seinem Tod im Jahr 1940 kommentiert er in tausenden von Zeichnungen und Kleisterfarbearbeiten sowie in einigen grossformatigen Gemälden auf wenige Linien reduziert das menschliche Dasein.
-`
+`;
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-    const name = req.query['name'] as string
-    const isChild = Boolean(req.query['isChild'])
+  const name = req.query['name'] as string;
+  const isChild = Boolean(req.query['isChild']);
 
-    let promptText = ''
+  let promptText = '';
 
-    if (isChild) {
-        promptText += basicChildPrompt
-    } else {
-        promptText += basicAdultPrompt
-    }
+  if (isChild) {
+    promptText += basicChildPrompt;
+  } else {
+    promptText += basicAdultPrompt;
+  }
 
-    promptText += paulKleeInformation
+  promptText += paulKleeInformation;
 
-    const output = await prompt(promptText.replaceAll('{name}', name))
+  const output = await prompt(
+    promptText.replaceAll('{name}', name),
+    true,
+    isChild
+  );
 
-    return res.status(200).json({ 'message': output })
+  return res.status(200).json({ message: output });
 }
