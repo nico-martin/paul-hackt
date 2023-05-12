@@ -47,6 +47,8 @@ const Scanning: NextPage = () => {
       ) : (
         <button
           onClick={() => {
+            console.log("SCAN");
+            setScanning(true);
             const nfc = new NDEFReader();
             nfc.scan().then((result) => console.log(result));
           }}
