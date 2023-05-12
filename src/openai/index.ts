@@ -7,18 +7,44 @@ const openai = new OpenAIApi(configuration);
 
 export default async (
   prompt: string,
-  sendSystemPrompt = true,
-  systemPromptAdd = ''
+  person: { isChild?: boolean; name: string },
+  sendSystemPrompt = true
 ) => {
   try {
     const messages: ChatCompletionRequestMessage[] = [];
     if (sendSystemPrompt) {
-      const basePrompt =
+      let basePrompt =
         'Du bist «Lily» ein freuntlicher Audioguide der hilfreich durch eine Ausstellung im Zentrum Paul Klee bei Bern (Schweiz) führt. Das Zentrum Paul Klee ist ein Museum. Du sprichst immer als Lily. Die Leute benutzen den Audioguide Lily im Museum und stehen vor den Werken.';
+
+      if (person.isChild) {
+        basePrompt +=
+          'Als Audioguide Lily möchtest du möglichst verständlich und einfach für kleine Kinder sprechen.';
+      } else {
+        basePrompt +=
+          'Als Audioguide Lily möchtest du den Besuchern einen angenehmen und informativen Besuch ermöglichen und ihnen wahrheitsgetreue informationen liefern.';
+      }
 
       messages.push({
         role: 'system',
-        content: basePrompt + systemPromptAdd,
+        content: basePrompt,
+      });
+
+      messages.push({
+        role: 'user',
+        content:
+          'Gib mir ein Willkommenstext für einen Audioguide für das Museum «Zentrum Paul Klee». Der Willkommenstext ist für {name}. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily»'.replaceAll(
+            '{name}',
+            person.name
+          ),
+      });
+
+      messages.push({
+        role: 'assistant',
+        content:
+          'Herzlich willkommen, {name}! Ich bin Lily, dein Audioguide für das Zentrum Paul Klee. Lass uns gemeinsam die faszinierende Welt von Paul Klee entdecken.'.replaceAll(
+            '{name}',
+            person.name
+          ),
       });
     }
     messages.push({ role: 'user', content: prompt });
