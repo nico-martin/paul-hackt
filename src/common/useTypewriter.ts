@@ -4,7 +4,7 @@ import message from "@/theme/message/Message";
 
 const useTypewriter = (
   messages: Array<string>,
-  speed: number = 50
+  speed: number = 20
 ): { messages: Array<string>; done: boolean } => {
   const [newMessages, setNewMessages] = React.useState<Array<string>>(
     new Array(messages.length).fill("")

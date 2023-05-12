@@ -8,14 +8,27 @@ import cn from "@common/classnames";
 import { Card } from "@/theme";
 import cardStyles from "@/theme/misc/card.module.css";
 import buttonStyles from "@/theme/button/Button.module.css";
+import { Loader } from "@theme";
 
 const Home = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [person, setPerson] = usePerson();
   const [currentStep, setCurrentStep] = useState(1);
-  const [name, setName] = React.useState<string>();
+  const [greetingsText, setGreetingsText] = useState<string>("");
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
+  };
+
+  const setName = (name: string) => {
+    setPerson({ name });
+    handleNextStep();
+    setLoading(true);
+    fetch(`/api/greetings?name=${person.name}`).then(async (response) => {
+      const json = await response.json();
+      setGreetingsText(json.message);
+      setLoading(false);
+    });
   };
 
   const handleSubmit = () => {
@@ -30,9 +43,15 @@ const Home = () => {
   return (
     <div className="main">
       <img src="logo.svg" className={styles.logo} />
-      {currentStep === 1 && <StepOne setName={(name) => {}} />}
-      {currentStep === 2 && <StepTwo />}
-      {currentStep === 3 && <StepThree />}
+      {loading ? (
+        <Loader />
+      ) : (
+        <React.Fragment>
+          {currentStep === 1 && <StepOne setName={setName} />}
+          {currentStep === 2 && <StepTwo greetingsText={greetingsText} />}
+          {currentStep === 3 && <StepThree />}
+        </React.Fragment>
+      )}
     </div>
   );
 };
