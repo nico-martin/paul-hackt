@@ -1,0 +1,7 @@
+body {
+  background-color: var(--c-bkg-grey);
+}
+
+body > div:first-child {
+  //min-height: 100vh;
+}
