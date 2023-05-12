@@ -41,10 +41,19 @@ export default async function handler(
 
   promptText += paulKleeInformation;
 
+  let systemText = '';
+  if (isChild) {
+    systemText +=
+      'Als Audioguide Lily möchtest du möglichst verständlich und einfach für kleine Kinder sprechen.';
+  } else {
+    systemText +=
+      ' Als Audioguide Lily möchtest du den Besuchern einen angenehmen und informativen Besuch ermöglichen und ihnen wahrheitsgetreue informationen liefern.';
+  }
+
   const output = await prompt(
     promptText.replaceAll('{name}', name),
     true,
-    isChild
+    systemText
   );
 
   return res.status(200).json({ message: output });

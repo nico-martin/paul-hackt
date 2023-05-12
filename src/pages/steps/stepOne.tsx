@@ -23,7 +23,6 @@ const StepOne = () => {
       ))}
       {intros.done && (
         <label className="mb-4">
-          What is your name?
           <input
             type="text"
             name="name"

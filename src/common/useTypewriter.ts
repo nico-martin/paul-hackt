@@ -4,9 +4,11 @@ import message from "@/theme/message/Message";
 
 const useTypewriter = (
   messages: Array<string>,
-  speed: number = 75
+  speed: number = 50
 ): { messages: Array<string>; done: boolean } => {
-  const [newMessages, setNewMessages] = React.useState<Array<string>>([""]);
+  const [newMessages, setNewMessages] = React.useState<Array<string>>(
+    new Array(messages.length).fill("")
+  );
   const [done, setDone] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -29,6 +31,7 @@ const useTypewriter = (
 
             currentNewMessages[lineToProcess] =
               currentNewMessages[lineToProcess] + carToAdd;
+
             return currentNewMessages.map((n) => n);
           }),
         speed
