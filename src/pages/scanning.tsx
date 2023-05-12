@@ -22,11 +22,16 @@ const Scanning: NextPage = () => {
   const read = (e: NDEFReadingEvent) => {
     console.log(e.serialNumber);
     e.message.records.map((record) => {
-      const textDecoder = new TextDecoder(record.encoding);
-      const message = textDecoder.decode(record.data);
-      console.log(message);
-      if (record.recordType === "url" && message.startsWith(URL)) {
-        router.push(`creation/${message}`);
+      console.log(record);
+      try {
+        const textDecoder = new TextDecoder();
+        const message = textDecoder.decode(record.data);
+        console.log(message);
+        if (record.recordType === "url" && message.startsWith(URL)) {
+          router.push(`creation/${message}`);
+        }
+      } catch (e) {
+        console.log(e);
       }
     });
     /*

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { usePerson } from '@/store/PersonContext';
+import Toggle from '@/theme/form/InputToggle';
 
 const StepTwo = () => {
   const [person, setPerson] = usePerson();
   const [greetingsText, setGreetingsText] = useState();
 
-  const handleCheckboxChange = (event: any) => {
-    const { checked } = event.target;
+  const handleCheckboxChange = (checked: boolean) => {
     setPerson({
       ...person,
       isGrownUp: checked,
@@ -26,14 +26,11 @@ const StepTwo = () => {
       <br />
       <div>
         <p>Are you a grown-up?</p>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={person.isGrownUp || false}
-            onChange={handleCheckboxChange}
-          />
-          <span className="slider round"></span>
-        </label>
+        <Toggle
+          checked={person.isGrownUp || false}
+          onChange={handleCheckboxChange}
+          label="Toggle"
+        />
       </div>
     </div>
   );
