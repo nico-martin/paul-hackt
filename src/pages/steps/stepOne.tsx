@@ -1,12 +1,11 @@
 import React from "react";
-import { usePerson } from "@/store/PersonContext";
 import useTypewriter from "@common/useTypewriter";
-import buttonStyles from "@/theme/button/Button.module.css";
 import { Button } from "@theme";
 
-const StepOne: React.FC<{ setName: (name: string) => void }> = ({
-  setName: passName,
-}) => {
+const StepOne: React.FC<{
+  setName: (name: string) => void;
+  loading: boolean;
+}> = ({ setName: passName, loading }) => {
   const [name, setName] = React.useState<string>("");
   const intros = useTypewriter([
     "Hallo, ich bin Lilly",
@@ -38,7 +37,7 @@ const StepOne: React.FC<{ setName: (name: string) => void }> = ({
           </label>{" "}
         </React.Fragment>
       )}
-      <Button className={buttonStyles.button} onClick={() => passName(name)}>
+      <Button full onClick={() => passName(name)} loading={loading}>
         Next Step
       </Button>
     </div>

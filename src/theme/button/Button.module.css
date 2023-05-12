@@ -157,3 +157,11 @@
   --c-button-background: var(--c-red);
   --c-button-color: #fff;
 }
+
+.fullWidth {
+  width: 100%;
+  .content {
+    width: 100%;
+    text-align: center;
+  }
+}
