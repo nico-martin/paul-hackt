@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { usePerson } from '@/store/PersonContext';
-import StepOne from '@/pages/steps/stepOne';
-import StepTwo from '@/pages/steps/stepTwo';
+import React, { useState } from "react";
+import { usePerson } from "@/store/PersonContext";
+import StepOne from "@/pages/steps/stepOne";
+import StepTwo from "@/pages/steps/stepTwo";
 
 const Home = () => {
   const [person, setPerson] = usePerson();
@@ -18,25 +18,11 @@ const Home = () => {
     }
   };
 
-
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-
-        {currentStep === 1 && (
-          <StepOne
-            onSubmit={handleSubmit}
-            person={person}
-            setPerson={setPerson}
-          />
-        )}
-        {currentStep === 2 && (
-          <StepTwo
-            onSubmit={handleSubmit}
-            person={person}
-            setPerson={setPerson}
-          />
-        )}
-  <button onClick={handleNextStep}>Next Step</button>
+      {currentStep === 1 && <StepOne />}
+      {currentStep === 2 && <StepTwo />}
+      <button onClick={handleNextStep}>Next Step</button>
     </div>
   );
 };
