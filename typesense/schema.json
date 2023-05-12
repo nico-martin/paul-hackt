@@ -1,0 +1,40 @@
+{
+  "name": "paulhackt",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "facet": false,
+      "optional": false,
+      "index": true,
+      "sort": true,
+      "infix": true,
+      "locale": ""
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "facet": false,
+      "optional": false,
+      "index": true,
+      "sort": true,
+      "infix": true,
+      "locale": ""
+    },
+    {
+      "name": "vector",
+      "type": "float[]",
+      "facet": false,
+      "optional": false,
+      "index": true,
+      "sort": false,
+      "infix": true,
+      "locale": "",
+      "num_dim": 1536
+    }
+  ],
+  "default_sorting_field": "",
+  "enable_nested_fields": false,
+  "symbols_to_index": [],
+  "token_separators": []
+}

@@ -53,6 +53,6 @@ async function populateIndex({ indexName, API_URL, API_KEY, API_MODEL }) {
 
 // OpenAI Embeddings API
 populateIndex({
-  indexName: "test",
+  indexName: "paulhackt",
   API_KEY: OPENAI_API_KEY,
 });
