@@ -50,3 +50,11 @@
 .bg-teal {
   background-color: var(--c-teal);
 }
+
+.text-olive {
+  color: var(--c-olive);
+}
+
+.text-teal {
+  color: var(--c-teal);
+}

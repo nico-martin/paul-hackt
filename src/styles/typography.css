@@ -93,3 +93,11 @@ button {
   color: var(--c-teal);
   font-family: var(--font-heading);
 }
+
+.text-heading {
+  font-family: var(--font-heading);
+}
+
+.text-body {
+  font-family: var(--font);
+}
