@@ -9,13 +9,20 @@ import { Button } from '@theme';
 const Home: NextPage = () => {
   const router = useRouter();
   const [person, _] = usePerson();
-  const [workInformation, setWorkInformation] = useState<{ message: string, question: { text: string, options: Array<{ value: string, text: string }> } }>();
+  const [workInformation, setWorkInformation] = useState<{
+    message: string;
+    question: { text: string; options: Array<{ value: string; text: string }> };
+  }>();
   const [questionValue, setQuestionValue] = useState<string>();
-  const [questionAnswer, setQuestionAnswer] = useState<{additionalText: string, message: string}>();
+  const [questionAnswer, setQuestionAnswer] = useState<{
+    additionalText: string;
+    message: string;
+  }>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!router.query.id) {
-      return
+      return;
     }
     fetch(
       `/api/work?name=${person.name}&isChild=${person.isChild}&id=${router.query.id}`
@@ -27,13 +34,15 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (!questionValue) {
-      return 
+      return;
     }
+    setLoading(true);
     fetch(
       `/api/work?name=${person.name}&isChild=${person.isChild}&id=${router.query.id}&questionValue=${questionValue}`
     ).then(async (response) => {
       const json = await response.json();
       setQuestionAnswer(json);
+      setLoading(false);
     });
   }, [questionValue]);
 
@@ -57,6 +66,8 @@ const Home: NextPage = () => {
               onClick={() => {
                 setQuestionValue(workInformation.question.options[0].value);
               }}
+              disabled={loading}
+              loading={loading}
             >
               {workInformation.question.options[0].text}
             </Button>
@@ -65,6 +76,8 @@ const Home: NextPage = () => {
               onClick={() => {
                 setQuestionValue(workInformation.question.options[1].value);
               }}
+              disabled={loading}
+              loading={loading}
             >
               {workInformation.question.options[1].text}
             </Button>
