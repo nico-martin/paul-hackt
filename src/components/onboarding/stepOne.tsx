@@ -19,6 +19,11 @@ const StepOne: React.FC<{
 
   return (
     <div>
+      <p className="font-bold text-heading text-teal">
+        Paul Klee Rundgang mit LiLi
+      </p>
+
+      <div className="w-full h-1 my-12 bg-teal"></div>
       {intros.messages.map((e, i) => (
         <p className="mb-4 text-lg font-bold" key={i}>
           {e}
