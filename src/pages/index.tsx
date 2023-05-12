@@ -24,12 +24,14 @@ const Home = () => {
     setPerson({ name });
     handleNextStep();
     setLoading(true);
-    fetch(`/api/greetings?name=${person.name}`).then(async (response) => {
+    fetch(`/api/greetings?name=${name}`).then(async (response) => {
       const json = await response.json();
       setGreetingsText(json.message);
       setLoading(false);
     });
   };
+
+  const setIsChild = (isChild: boolean) => {};
 
   const handleSubmit = () => {
     // Perform any validation or API calls here
@@ -48,7 +50,9 @@ const Home = () => {
       ) : (
         <React.Fragment>
           {currentStep === 1 && <StepOne setName={setName} />}
-          {currentStep === 2 && <StepTwo greetingsText={greetingsText} />}
+          {currentStep === 2 && (
+            <StepTwo greetingsText={greetingsText} setIsChild={setIsChild} />
+          )}
           {currentStep === 3 && <StepThree />}
         </React.Fragment>
       )}
