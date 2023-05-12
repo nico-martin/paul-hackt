@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { usePerson } from '@/store/PersonContext';
-import Toggle from '@/theme/form/InputToggle';
+import React, { useEffect, useState } from "react";
+import { usePerson } from "@/store/PersonContext";
+import Toggle from "@/theme/form/InputToggle";
 
 const StepTwo = () => {
   const [person, setPerson] = usePerson();

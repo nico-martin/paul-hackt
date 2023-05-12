@@ -9,6 +9,7 @@ import cn from "@common/classnames";
 const Home = () => {
   const [person, setPerson] = usePerson();
   const [currentStep, setCurrentStep] = useState(1);
+  const [name, setName] = React.useState<string>();
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
@@ -26,10 +27,9 @@ const Home = () => {
   return (
     <div className={cn(styles.root)}>
       <img src="logo.svg" className={styles.logo} />
-      {currentStep === 1 && <StepOne />}
+      {currentStep === 1 && <StepOne setName={(name) => {}} />}
       {currentStep === 2 && <StepTwo />}
       {currentStep === 3 && <StepThree />}
-      <button onClick={handleNextStep}>Next Step</button>
     </div>
   );
 };

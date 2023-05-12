@@ -2,16 +2,18 @@ import React from "react";
 import { usePerson } from "@/store/PersonContext";
 import useTypewriter from "@common/useTypewriter";
 
-const StepOne = () => {
-  const [person, setPerson] = usePerson();
+const StepOne: React.FC<{ setName: (name: string) => void }> = ({
+  setName: passName,
+}) => {
+  const [name, setName] = React.useState<string>("");
   const intros = useTypewriter([
     "Hallo, ich bin Lilly",
     "Verrätst du mir deinen Namen?",
   ]);
 
   const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setPerson({ [name]: value });
+    const { value } = event.target;
+    setName(value);
   };
 
   return (
@@ -26,12 +28,13 @@ const StepOne = () => {
           <input
             type="text"
             name="name"
-            value={person.name || ""}
+            value=""
             onChange={handleInputChange}
             className="px-2 py-1 mt-1 border border-gray-300 rounded-md"
           />
         </label>
       )}
+      <button onClick={() => passName(name)}>Next Step</button>
     </div>
   );
 };
