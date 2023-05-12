@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { usePerson } from "@/store/PersonContext";
-import StepOne from "@/pages/steps/stepOne";
-import StepTwo from "@/pages/steps/stepTwo";
-import StepThree from "./steps/stepThree";
+import StepOne from "@/components/onboarding/stepOne";
+import StepTwo from "@/components/onboarding/stepTwo";
+import StepThree from "../components/onboarding/stepThree";
 import styles from "./index.module.css";
-import cn from "@common/classnames";
-import { Card } from "@/theme";
-import cardStyles from "@/theme/misc/card.module.css";
-import { Loader } from "@theme";
 
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -66,7 +62,7 @@ const Home = () => {
           loading={loading}
         />
       )}
-      {currentStep === 3 && <StepThree />}
+      {currentStep === 3 && <StepThree introText={introText} />}
     </div>
   );
 };
