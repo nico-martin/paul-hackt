@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 
 import styles from "./scanning.module.css";
 import { CREATIONS } from "@common/constants";
+import { read } from "fs";
 const Scanning: NextPage = () => {
   const [supported, setSupported] = React.useState<boolean>(false);
-  const [scanning, setScanning] = React.useState<boolean>(false);
+  const [reader, setReader] = React.useState<NDEFReader>(null);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -17,6 +18,8 @@ const Scanning: NextPage = () => {
     }
     setSupported(true);
   }, []);
+
+  const read = (e: NDEFReadingEvent) => console.log(e);
 
   return (
     <div className={styles.root}>
@@ -35,7 +38,7 @@ const Scanning: NextPage = () => {
             }}
           />
         </div>
-      ) : scanning ? (
+      ) : reader ? (
         <React.Fragment>
           <Icon icon="nfc" className={styles.icon} />
           <div className={styles.loader}>
@@ -46,11 +49,12 @@ const Scanning: NextPage = () => {
         </React.Fragment>
       ) : (
         <button
-          onClick={() => {
-            console.log("SCAN");
-            setScanning(true);
+          onClick={async () => {
             const nfc = new NDEFReader();
-            nfc.scan().then((result) => console.log(result));
+            await nfc.scan();
+            setReader(nfc);
+            nfc.onreadingerror = (e) => alert(JSON.stringify(e));
+            nfc.onreading = (e) => read(e);
           }}
         >
           scan
