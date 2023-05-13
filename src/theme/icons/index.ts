@@ -32,6 +32,7 @@ import TimerSandComplete from "./timer-sand-complete.svg";
 import Url from "./url.svg";
 import X from "./x.svg";
 import Nfc from "./nfc.svg";
+import Translate from "./translate.svg";
 
 export type IconNamesT =
   | "url"
@@ -66,6 +67,7 @@ export type IconNamesT =
   | "delete"
   | "nfc"
   | "slack"
+  | "translate"
   | "cog";
 
 export default {
@@ -102,4 +104,5 @@ export default {
   fileEye: FileEye,
   slack: Slack,
   nfc: Nfc,
+  translate: Translate,
 } as Record<IconNamesT, React.FC<React.SVGProps<SVGSVGElement>>>;

@@ -1,7 +1,5 @@
 export const CREATIONS = {
-  senecio: "Senecio",
-  "zwitscher-maschine": "Die Zwitscher-Maschine",
-  "ad-parnassum": "Ad Parnassum",
+  "park-bei-lu": "Park bei Lu",
 };
 
 export const URL = "paul-hackt // ";

@@ -7,6 +7,7 @@ export { default as Loader } from "./misc/Loader";
 export { default as Card } from "./misc/Card";
 export { default as CopyCode } from "./misc/CopyCode";
 export { default as IconBubble, ICON_BUBBLE_TYPE } from "./misc/IconBubble";
+export { default as Divider } from "./misc/Divider";
 
 export { default as Form } from "./form/Form";
 export { default as FormElement } from "./form/FormElement";

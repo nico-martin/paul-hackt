@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button } from "@theme";
+import { Button, Divider, Icon } from "@theme";
 import { usePerson } from "@/store/PersonContext";
+import styles from "./StepZero.module.css";
 
-const StepOne: React.FC<{
+const StepZero: React.FC<{
   setLanguage: () => void;
 }> = ({ setLanguage }) => {
   const [, setPerson] = usePerson();
@@ -17,56 +18,63 @@ const StepOne: React.FC<{
   };
 
   // we either have the liist of language buttons or we have the hello screen
-  return (
+  return languageIsSet ? (
     <div>
       <p className="font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi
+        <br />
+        Kennen lernen
+      </p>
+      <Divider className="mt-8" />
+      <h1 className={styles.heading}>Hallo!</h1>
+      <img src="/logo.svg" className={styles.logo} />
+    </div>
+  ) : (
+    <div>
+      <p className="font-bold text-heading text-teal">
+        Paul Klee Rundgang mit LiLi
+        <br />
+        <Icon icon="translate" className={styles.icon} />
       </p>
 
-      <div className="w-full h-1 my-12 bg-teal"></div>
+      <Divider className="mt-1" />
 
-      {languageIsSet ? (
-        <p className="text-teal text-heading h2">
-          Danke vielmals, auf zur nächsten Frage!
-        </p>
-      ) : (
-        <div>
-          <Button
-            className="!mb-4"
-            full
-            onClick={() => waitASecondAndThenSwitch("ch")}
-          >
-            Schweizerdeutsch
-          </Button>
-          <Button
-            className="!mb-4"
-            full
-            onClick={() => waitASecondAndThenSwitch("de")}
-          >
-            Deutsch
-          </Button>
-          <Button className="!mb-4" full disabled>
-            English
-          </Button>
-          <Button className="!mb-4" full disabled>
-            Français
-          </Button>
-          <Button className="!mb-4" full disabled>
-            Italiano
-          </Button>
-          <Button className="!mb-4" full disabled>
-            Español
-          </Button>
-          <Button className="!mb-4" full disabled>
-            Türkçe
-          </Button>
-          <Button className="!mb-4" full disabled>
-            Polski
-          </Button>
-        </div>
-      )}
+      <div className="my-6">
+        <Button
+          className="!mb-4"
+          full
+          onClick={() => waitASecondAndThenSwitch("ch")}
+        >
+          Schweizerdeutsch
+        </Button>
+        <Button
+          className="!mb-4"
+          full
+          onClick={() => waitASecondAndThenSwitch("de")}
+        >
+          Deutsch
+        </Button>
+        <Button className="!mb-4" full disabled>
+          English
+        </Button>
+        <Button className="!mb-4" full disabled>
+          Français
+        </Button>
+        <Button className="!mb-4" full disabled>
+          Italiano
+        </Button>
+        <Button className="!mb-4" full disabled>
+          Español
+        </Button>
+        <Button className="!mb-4" full disabled>
+          Türkçe
+        </Button>
+        <Button className="!mb-4" full disabled>
+          Polski
+        </Button>
+      </div>
     </div>
   );
 };
 
-export default StepOne;
+export default StepZero;

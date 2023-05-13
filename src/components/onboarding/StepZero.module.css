@@ -1,0 +1,15 @@
+.icon {
+  font-size: 3rem;
+  margin-top: 0.5rem;
+}
+
+.heading {
+  font-size: 4rem;
+  color: var(--c-teal);
+  margin-top: 3rem;
+}
+
+.logo {
+  max-width: 280px;
+  margin: 2rem auto 0 auto;
+}

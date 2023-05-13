@@ -26,7 +26,6 @@ const StepTwo: React.FC<{
       <p className="font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi
       </p>
-
       <div className="w-full h-1 my-12 bg-teal"></div>
       <div className={styles.text}>
         {messages.map((m, i) => (

@@ -1,7 +1,9 @@
 import React from "react";
 import useTypewriter from "@common/useTypewriter";
-import { Button } from "@theme";
+import { Button, Divider } from "@theme";
 import useAudio from "@common/useAudio";
+import styles from "@/components/onboarding/StepZero.module.css";
+import cn from "@common/classnames";
 
 const messages = ["Hallo, ich bin Lilly.", "Verrätst du mir deinen Namen?"];
 
@@ -26,21 +28,27 @@ const StepOne: React.FC<{
         Paul Klee Rundgang mit LiLi
       </p>
 
-      <div className="w-full h-1 my-12 bg-teal"></div>
-      {intros.messages.map((e, i) => (
-        <p className="mb-4 text-lg font-bold" key={i}>
-          {e}
-        </p>
-      ))}
+      <Divider className="!my-12" />
+      <div className="mb-10">
+        {intros.messages.map((e, i) => (
+          <p className="mb-2 text-lg font-bold text-heading text-teal" key={i}>
+            {e}
+          </p>
+        ))}
+      </div>
       {intros.done && (
         <React.Fragment>
-          <label className="mb-4">
+          <label className="mb-4  relative">
+            <img
+              src="/logo.svg"
+              className={cn("absolute w-[60px] right-0 top-[-55px]")}
+            />
             <input
               type="text"
               name="name"
               value={name}
               onChange={handleInputChange}
-              className="w-full p-4 px-2 mt-1 mb-6 border border-gray-300 rounded-md"
+              className="w-full p-4 px-2  mb-6 border border-gray-300 rounded-md text-heading text-teal font-bold text-2xl"
             />
           </label>{" "}
         </React.Fragment>
