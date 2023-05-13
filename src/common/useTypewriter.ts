@@ -1,5 +1,4 @@
 import React from 'react';
-import { usePerson } from "@/store/PersonContext";
 
 const defaultSpeed = 20;
 
@@ -12,10 +11,8 @@ const useTypewriter = (
   );
   const [done, setDone] = React.useState<boolean>(false);
 
-  const [, setPerson] = usePerson();
 
   React.useEffect(() => {
-    setPerson({ isTalking: true }); // Start talking when the effect starts
 
     const i = window.setInterval(
       () =>
@@ -26,7 +23,6 @@ const useTypewriter = (
 
           if (lineToProcess === -1) {
             clearInterval(i);
-            setPerson({ isTalking: false }); // Stop talking when the typing is done
             return currentNewMessages;
           }
 
