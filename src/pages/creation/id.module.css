@@ -32,3 +32,10 @@
   height: 60px;
   top: -30px;
 }
+
+.close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 1.8rem;
+}
