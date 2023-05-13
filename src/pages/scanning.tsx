@@ -42,10 +42,9 @@ const Scanning: NextPage = () => {
           </p>
           <InputSelect
             name="creation"
-            options={CREATIONS}
+            options={{ "": "Select...", ...CREATIONS }}
             onChange={(e) => {
-              alert(JSON.stringify(e));
-              router.push(`creation/${e.target.value}`);
+              e.target.value && router.push(`creation/${e.target.value}`);
             }}
           />
         </div>
