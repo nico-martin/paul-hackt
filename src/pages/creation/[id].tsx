@@ -133,7 +133,7 @@ const Home: NextPage = () => {
         {heading()}
 
         <div className="px-10 py-7">
-          <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
+          <div className="bg-[#004E5F] px-10 py-16 is--dark relative mx-[-40px]">
             <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
               <img
                 className="rounded-full aspect-square"
