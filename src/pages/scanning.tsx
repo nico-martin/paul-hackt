@@ -4,7 +4,7 @@ import { Icon, InputSelect } from "@theme";
 import { useRouter } from "next/router";
 
 import styles from "./scanning.module.css";
-import { CREATIONS, URL } from "@common/constants";
+import { CREATIONS, NFC_PREFIX } from "@common/constants";
 import { SCANNER_TYPES, useScanner } from "@/store/ScannerContext";
 
 const Scanning: NextPage = () => {
@@ -23,9 +23,9 @@ const Scanning: NextPage = () => {
       try {
         const textDecoder = new TextDecoder();
         const message = textDecoder.decode(record.data);
-        console.log(message, `creation/${message.replace(URL, "")}`);
-        if (record.recordType === "url" && message.startsWith(URL)) {
-          router.push(`creation/${message.replace(URL, "")}`);
+        console.log(message, `creation/${message.replace(NFC_PREFIX, "")}`);
+        if (record.recordType === "text" && message.startsWith(NFC_PREFIX)) {
+          router.push(`creation/${message.replace(NFC_PREFIX, "")}`);
         }
       } catch (e) {
         console.log(e);
