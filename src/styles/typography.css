@@ -68,6 +68,12 @@ p {
   }
 }
 
+.is--dark {
+  p {
+    color: #b4d8c2;
+  }
+}
+
 p,
 td,
 th,

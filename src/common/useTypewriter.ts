@@ -1,5 +1,5 @@
-import React from "react";
-import { clearInterval } from "timers";
+import React from 'react';
+import { clearInterval } from 'timers';
 
 const defaultSpeed = 20;
 
@@ -8,7 +8,7 @@ const useTypewriter = (
   speed: number = null
 ): { messages: Array<string>; done: boolean } => {
   const [newMessages, setNewMessages] = React.useState<Array<string>>(
-    new Array(messages.length).fill("")
+    new Array(messages.length).fill('')
   );
   const [done, setDone] = React.useState<boolean>(false);
 

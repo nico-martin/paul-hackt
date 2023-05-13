@@ -16,6 +16,7 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
       date: 1938,
       text: 'Natur',
       image: 'https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg',
+      name: 'Park bei Lu',
     },
     adultPrompt: '',
     childPrompt:
@@ -64,6 +65,7 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
       date: 1938,
       text: 'Natur',
       image: 'https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg',
+      name: 'Puppe',
     },
     information: ``,
     question:
@@ -165,5 +167,6 @@ export default async function handler(
     additionalText,
     message: output,
     question,
+    metadata: information.metadata,
   });
 }
