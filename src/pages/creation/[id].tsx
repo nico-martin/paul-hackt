@@ -6,6 +6,7 @@ import { usePerson } from "@/store/PersonContext";
 import styles from "./id.module.css";
 import { Button, CloseButton, Divider, Icon } from "@theme";
 import useAudio from "@common/useAudio";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -15,12 +16,13 @@ const Home: NextPage = () => {
     question: { text: string; options: Array<{ value: string; text: string }> };
     metadata: { name: string; date: number; image: string; text: string };
   }>();
-  const [questionValue, setQuestionValue] = useState<string>();
   const [questionAnswer, setQuestionAnswer] = useState<{
     additionalText: string;
     message: string;
   }>();
-  const [loading, setLoading] = useState(false);
+  const [loadingFirst, setLoadingFirst] = useState(false);
+  const [loadingSecond, setLoadingSecond] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     if (!router.query.id) {
@@ -31,22 +33,29 @@ const Home: NextPage = () => {
     ).then(async (response) => {
       const json = await response.json();
       setWorkInformation(json);
+      setPageLoading(false);
     });
   }, [router.query.id]);
 
-  useEffect(() => {
-    if (!questionValue) {
-      return;
+  const buttonClick = (questionValue: string, isFirst: boolean) => {
+    if (isFirst) {
+      setLoadingFirst(true);
+    } else {
+      setLoadingSecond(true);
     }
-    setLoading(true);
+
     fetch(
       `/api/work?name=${person.name}&isChild=${person.isChild}&id=${router.query.id}&questionValue=${questionValue}`
     ).then(async (response) => {
       const json = await response.json();
       setQuestionAnswer(json);
-      setLoading(false);
+      if (isFirst) {
+        setLoadingFirst(false);
+      } else {
+        setLoadingSecond(false);
+      }
     });
-  }, [questionValue]);
+  };
 
   const audio = useAudio(workInformation?.message || "");
   const audioTwo = useAudio(
@@ -74,6 +83,10 @@ const Home: NextPage = () => {
       <span>{workInformation.metadata.date}</span>
     </div>
   );
+
+  if (pageLoading) {
+    return <LoadingScreen />;
+  }
 
   if (!questionAnswer) {
     return (
@@ -108,20 +121,20 @@ const Home: NextPage = () => {
               <Button
                 className={styles.button}
                 onClick={() => {
-                  setQuestionValue(workInformation.question.options[0].value);
+                  buttonClick(workInformation.question.options[0].value, true);
                 }}
-                disabled={loading}
-                loading={loading}
+                disabled={loadingFirst || loadingSecond}
+                loading={loadingFirst}
               >
                 {workInformation.question.options[0].text}
               </Button>
               <Button
                 className={styles.button}
                 onClick={() => {
-                  setQuestionValue(workInformation.question.options[1].value);
+                  buttonClick(workInformation.question.options[1].value, false);
                 }}
-                disabled={loading}
-                loading={loading}
+                disabled={loadingFirst || loadingSecond}
+                loading={loadingSecond}
               >
                 {workInformation.question.options[1].text}
               </Button>
