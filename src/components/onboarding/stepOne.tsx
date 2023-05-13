@@ -38,7 +38,7 @@ const StepOne: React.FC<{
       </div>
       {intros.done && (
         <React.Fragment>
-          <label className="mb-4  relative">
+          <label className="relative mb-4">
             <img
               src="/logo.svg"
               className={cn("absolute w-[60px] right-0 top-[-55px]")}
@@ -48,13 +48,13 @@ const StepOne: React.FC<{
               name="name"
               value={name}
               onChange={handleInputChange}
-              className="w-full p-4 px-2  mb-6 border border-gray-300 rounded-md text-heading text-teal font-bold text-2xl"
+              className="w-full p-4 px-2 mb-6 text-2xl font-bold border border-gray-300 rounded-md text-heading text-teal"
             />
           </label>{" "}
         </React.Fragment>
       )}
       <Button full onClick={() => passName(name)} loading={loading}>
-        Next Step
+        Weiter
       </Button>
     </div>
   );
