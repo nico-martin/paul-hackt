@@ -1,7 +1,35 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prompt from '../../openai';
 
-const works = [
+interface IWork {
+  id: string;
+  information: string;
+  metadata: {
+    date: number;
+    text: string;
+    image: string;
+    name: string;
+  };
+  adultPrompt?: string;
+  childPrompt?: string;
+  question: string;
+  questionAdult?: string;
+  endPrompt?: string;
+  noPrompt?: boolean;
+  options: Array<{
+    text: string;
+    adultText?: string;
+    value: string;
+    prompt: {
+      text: string;
+      adultText?: string;
+      prompt: string;
+      adultPrompt?: string;
+    };
+  }>;
+}
+
+const works: Array<IWork> = [
   {
     id: 'park-bei-lu',
     information: `
@@ -25,7 +53,6 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
     question: 'Magst du, wie die Natur im Bild verfremdet dargestellt wird?',
     questionAdult:
       'Die abstrakte Darstellung der Natur in diesem Bild war im 20. Jahrhundert sehr modern. Ist diese statische Form heute noch angebracht?',
-    questionId: '1',
     options: [
       {
         text: 'Nee Videos mag ich besser',
@@ -33,6 +60,8 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
         value: 'true',
         prompt: {
           text: 'Du magst also VIDEO besser. Verstehe ich wirklich gut. …',
+          adultText:
+            'Stimmt schon, Video ist wohl die modernere Auseinandersetzung. Oder sind wir heute mit virtuellen Welten bereits wieder einen Schritt weiter.',
           prompt: `Nachfolgend ein paar Informationen über das schaffen von  «Paul Klee» als Musiker.
 Ergänze den Satz: «Paul Klee hat auch mit Filmen Experimente gemacht und ». Schreibe danach noch einen weiterne satz. Der Text ist für ein Kind, 14 Jahre alt. Der Text wird vom Audioguide in einem Museum gesprochen. Sprich als Audioguide.
 
@@ -40,6 +69,8 @@ Hier die Information von Paul Klee als Musiker:
 
 Musik ist fester Bestandteil in Paul Klees Leben: Als Jugendlicher spielt er im Orchester der Stadt Bern Geige, später musiziert er regelmässig mit seiner Frau Lily und probt mit befreundeten Musiker:innen die Streichquartetten der Klassik und der Romantik. Paul Klee ist auch ein begeisterter Konzert- und Operngänger und baut sich eine ansehnliche Sammlung an Langspielplatten mit klassischer Musik auf. Auch in seiner Kunst nimmt Klee häufig Bezug auf Musik und viele seiner Bilder tragen Titel mit musikalischen Begriffen wie Klang, Rhythmus, Polyphonie oder Harmonie.
 `,
+          adultPrompt: `
+          Ergänze den folgenden Satz: "Paul Klee hat auch mit Filmen Experimente gemacht und...". Schreibe danach noch einen weiteren Satz. Der Text ist für {name}, eine kunstinteressierte Erwachsene. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Der Text wird vom Audioguide "Lily" im "Zentrum Paul Klee" gesprochen. Sprich als "Lily". Begrüsse {name} nicht. Gehe nicht auf Sachen ein, die {name} nicht kennt.`,
         },
       },
       {
@@ -48,6 +79,8 @@ Musik ist fester Bestandteil in Paul Klees Leben: Als Jugendlicher spielt er im 
         value: 'false',
         prompt: {
           text: 'Freut mich, dass dir die Bilder gefallen.',
+          adultText:
+            'Stimmt. Bilder sind wohl eine zeitlose Form, die uns schon lange durch die Kunstgeschichte begleiten. Paul Klee hatte immer seine Augen offen.',
           prompt: `Nachfolgend ein paar Informationen über das Schaffen von  «Paul Klee» als Sammler.
 Ergänze den Satz: «Er hat viel Inspiration für die Bilder aus seiner Sammlung genommen. ». Schreibe danach noch einen weiteren Satz. Der Text ist für ein Kind, 14 Jahre alt. Der Text wird vom Audioguide in einem Museum gesprochen. Die Sammlung sieht man nicht. Sprich als Audioguide.
 
@@ -56,6 +89,8 @@ Hier die Information von Paul Klee als Sammler:
 ## Sammler
 Die Natur fasziniert Paul Klee schon als Kind und Jugendlicher. Später bildet die Auseinandersetzung mit den Strukturen und Wachstumsprozessen der Natur die Grundlage seines künstlerischen Schaffens. Er sammelt Muscheln, Algen, Schneckenhäuser und Gesteine und legt ein grosses Herbarium an. Seine Naturaliensammlung bewahrt er jeweils im Atelier auf: Sie dient ihm als wichtige Inspirationsquelle und als Reflexionsraum kunsttheoretischer Überlegungen.
 `,
+          adultPrompt: `Nachfolgend ein paar Informationen über das Schaffen von  «Paul Klee» als Sammler
+Ergänze den folgenden Satz: "Er hat viel Inspiration für seine Bilder aus seiner Sammlung genommen...". Schreibe danach noch einen weiteren Satz. Der Text ist für {name}, eine kunstinteressierte Erwachsene. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Der Text wird vom Audioguide "Lily" im "Zentrum Paul Klee" gesprochen. Sprich als "Lily". Die Sammlung ist nicht sichtbar. Begrüsse {name} nicht. Gehe nicht auf Sachen ein, die {name} nicht kennt.`,
         },
       },
     ],
@@ -80,7 +115,6 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
     options: [
       {
         text: 'Dichter & Der Geist',
-        adultText: null,
         value: 'Dichter',
         prompt: {
           text: '',
@@ -97,7 +131,6 @@ Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle 
       },
       {
         text: 'Klee & Clown',
-        adultText: null,
         value: 'Klee',
         prompt: {
           text: '',
@@ -125,8 +158,6 @@ export default async function handler(
   const id = req.query['id'] as string;
   const questionValue = req.query['questionValue'];
 
-  let audioText = '';
-
   const information = works.find((work) => work.id === id);
 
   if (!information) {
@@ -147,12 +178,17 @@ export default async function handler(
         information.endPrompt;
     }
   } else {
-    audioText += additionalText;
     let option = information.options.find(
       (option) => option.value === questionValue
     );
-    promptText = option.prompt.prompt.replaceAll('{name}', name);
-    additionalText = option.prompt.text;
+    promptText =
+      isChild || !option.prompt.adultPrompt
+        ? option.prompt.prompt.replaceAll('{name}', name)
+        : option.prompt.adultPrompt.replaceAll('{name}', name);
+    additionalText =
+      isChild || !option.prompt.adultText
+        ? option.prompt.text
+        : option.prompt.adultText;
   }
 
   let output = '';
@@ -161,7 +197,6 @@ export default async function handler(
     output = information.information;
   } else if (information.information || questionValue) {
     output = await prompt(promptText, { name, isChild });
-    audioText += output;
   }
 
   let question = undefined;
