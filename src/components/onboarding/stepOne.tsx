@@ -1,30 +1,27 @@
 import React from "react";
 import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
-import { useTextToSpeech } from "@/store/TextToSpeechContext";
+import useAudio from "@common/useAudio";
+
+const messages = ["Hallo, ich bin Lilly.", "Verrätst du mir deinen Namen?"];
 
 const StepOne: React.FC<{
   setName: (name: string) => void;
   loading: boolean;
 }> = ({ setName: passName, loading }) => {
   const [name, setName] = React.useState<string>("");
-  const intros = useTypewriter([
-    "Hallo, ich bin Lilly.",
-    "Verrätst du mir deinen Namen?",
-  ]);
-  const { readText } = useTextToSpeech();
+  const intros = useTypewriter(messages);
+
+  const audio = useAudio(messages.join(" "), true);
 
   const handleInputChange = (event: any) => {
     const { value } = event.target;
     setName(value);
   };
 
-  React.useEffect(() => {
-    readText("Hallo, ich bin Lilly. Verrätst du mir deinen Namen?");
-  }, []);
-
   return (
     <div>
+      {audio.element}
       <p className="font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi
       </p>

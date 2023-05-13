@@ -4,22 +4,21 @@ import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
 import { useScanner } from "@/store/ScannerContext";
 import { useRouter } from "next/router";
-import { useTextToSpeech } from "@/store/TextToSpeechContext";
-import Typewriter from "@/components/Typewriter";
+import useAudio from "@common/useAudio";
 
 const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
-  const { readText } = useTextToSpeech();
 
-  const { messages, done } = useTypewriter([
-    introText,
-    "Jetzt gehts in die Ausstellung!",
-  ]);
+  const texts = [introText, "Jetzt gehts in die Ausstellung!"];
+  const { messages, done } = useTypewriter(texts);
+
+  const audio = useAudio(texts.join(" "));
 
   const { setUpScanner } = useScanner();
   const router = useRouter();
   return (
     <div>
+      {audio.element}
       <p className="font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi
       </p>

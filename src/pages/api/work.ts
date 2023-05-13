@@ -18,7 +18,7 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
       image: 'https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg',
       name: 'Park bei Lu',
     },
-    adultPrompt: '',
+    adultPrompt: 'Nachfolgend einige Informationen über das berühmte Bild "Park bei Lu" von "Paul Klee". Sandra ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besucht. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie dieses spezifische Werk Klees ihr eine tiefe und dennoch zugängliche Erfahrung bieten kann, ohne auf spezifische Kunstbegriffe oder Maltechniken einzugehen. Beschränke dich auf vier Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse Sandra nicht. Gehe nicht auf Sachen ein, die Sandra nicht kennt. Sandra steht vor dem Kunstwerk "Park bei Lu"',
     childPrompt:
       'Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».',
     question: 'Magst du, wie die Natur im Bild verfremdet dargestellt wird?',
@@ -77,8 +77,8 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
         prompt: {
           text: '',
           prompt: `Erzähle eine kurze lustige Geschichte mit drei Personen:
-* Paul Klees Puppe «Dichter» 
-* Paul Klees Puppe «Herr Tod» 
+* Paul Klees Puppe «Dichter»
+* Paul Klees Puppe «Herr Tod»
 * 12 jährigen {name} mit blauen Haaren
 
 Länge der geschichte sind kurze 300 Zeichen. Einfache Sprache.
@@ -93,8 +93,8 @@ Beginne die Gechichte mit «Es ware einmal   ...»
         prompt: {
           text: '',
           prompt: `Erzähle eine kurze lustige Geschichte mit drei Personen:
-* Paul Klees Puppe "Klee" 
-* Paul Klees Puppe «Clown» 
+* Paul Klees Puppe "Klee"
+* Paul Klees Puppe «Clown»
 * 12 jährigen {name} mit blauen Haaren
 
 Länge der geschichte sind kurze 300 Zeichen. Einfache Sprache.

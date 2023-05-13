@@ -3,7 +3,7 @@ import prompt from '../../openai';
 
 const basicChildPrompt = `Nachfolgend ein paar Informationen über Paul Klee. Sandra kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Erwähne, wie langweilig sonst Museen sind, aber im Zentrum «Zentrum Paul Klee» das vielleicht anders ist. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily».`;
 
-const basicAdultPrompt = ``;
+const basicAdultPrompt = `Nachfolgend ein paar Informationen über Paul Klee. Sandra ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besuchen möchte. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie das "Zentrum Paul Klee" ihr eine einzigartige, zugängliche und tiefgründige Erfahrung bieten kann, indem es Einblicke in verschiedene Lebensabschnitte von Klee und die Entwicklung seiner Kunst bietet. Beschränke dich auf vier Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse Sandra nicht. Gehe nicht auf Sachen ein die Sandra nicht kennt.`;
 
 const endPrompt = `---
 
