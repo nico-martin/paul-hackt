@@ -10,6 +10,7 @@ interface Person {
   isChild: boolean;
   visited: Array<number>;
   mood: MOOD;
+  lang: string;
 }
 
 const defaultValues: Person = {
@@ -17,6 +18,7 @@ const defaultValues: Person = {
   isChild: null,
   visited: [],
   mood: null,
+  lang: "",
 };
 
 interface ContextInterface {

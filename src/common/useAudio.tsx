@@ -1,4 +1,5 @@
 import React from "react";
+import { usePerson } from "@/store/PersonContext";
 
 const useAudio = (
   msg: string,
@@ -7,11 +8,12 @@ const useAudio = (
   const [loading, setLoading] = React.useState<boolean>(false);
   const [audio, setAudio] = React.useState<string>(null);
   const ref = React.useRef<HTMLAudioElement>(null);
+  const [person] = usePerson();
 
   const play = () =>
     new Promise<boolean>((resolve) => {
       setLoading(true);
-      fetch(`/api/speech`, {
+      fetch(`/api/speech?lang=${person.lang}`, {
         method: "POST",
         body: msg,
       }).then(async (response) => {
