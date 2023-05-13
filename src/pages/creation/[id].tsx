@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { usePerson } from "@/store/PersonContext";
 import styles from "./id.module.css";
 import { Button, CloseButton, Divider, Icon } from "@theme";
+import useAudio from "@common/useAudio";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -47,6 +48,21 @@ const Home: NextPage = () => {
     });
   }, [questionValue]);
 
+  const audio = useAudio(workInformation?.message || "");
+  const audioTwo = useAudio(
+    (questionAnswer?.additionalText || "") +
+      " " +
+      (questionAnswer?.message || "")
+  );
+
+  useEffect(() => {
+    questionAnswer && audioTwo.play();
+  }, [questionAnswer]);
+
+  useEffect(() => {
+    workInformation?.message && audio.play();
+  }, [workInformation?.message]);
+
   const heading = () => (
     <div className={styles.heading + " px-10 pt-7 text-heading"}>
       <CloseButton
@@ -64,7 +80,7 @@ const Home: NextPage = () => {
       workInformation && (
         <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F] relative">
           {heading()}
-
+          {audio.element}
           <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
             <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
               <img
@@ -118,7 +134,7 @@ const Home: NextPage = () => {
     return (
       <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F]">
         {heading()}
-
+        {audioTwo.element}
         <div className="px-10 py-7">
           <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
             <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
