@@ -6,7 +6,6 @@ import "../styles/globals.css";
 import styles from "./_app.module.css";
 import { Provider as PersonContextProvider } from "@/store/PersonContext";
 import { Provider as ScannerContextProvider } from "@/store/ScannerContext";
-import { Provider as TextToSpeechContext } from "@/store/TextToSpeechContext";
 import { Quicksand, PT_Serif } from "next/font/google";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
@@ -30,15 +29,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           }
         `}</style>
       </Head>
-      <TextToSpeechContext>
-        <PersonContextProvider>
-          <ScannerContextProvider>
-            <main className={styles.main}>
-              <Component {...pageProps} />
-            </main>
-          </ScannerContextProvider>
-        </PersonContextProvider>
-      </TextToSpeechContext>
+      <PersonContextProvider>
+        <ScannerContextProvider>
+          <main className={styles.main}>
+            <Component {...pageProps} />
+          </main>
+        </ScannerContextProvider>
+      </PersonContextProvider>
     </React.Fragment>
   );
 }

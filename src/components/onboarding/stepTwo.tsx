@@ -4,31 +4,25 @@ import Toggle from "@/theme/form/InputToggle";
 import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
 import styles from "./StepTwo.module.css";
-import { useTextToSpeech } from "@/store/TextToSpeechContext";
+import useAudio from "@common/useAudio";
 const StepTwo: React.FC<{
   greetingsText: string;
   setIsChild: (idChild: boolean) => void;
   loading: boolean;
 }> = ({ greetingsText, setIsChild, loading }) => {
   const [person, setPerson] = usePerson();
-  const { readText } = useTextToSpeech();
 
   const texts = [
     greetingsText,
     "Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?",
   ];
 
-  const { messages, done } = useTypewriter([
-    greetingsText,
-    "Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?",
-  ]);
-
-  React.useEffect(() => {
-    readText(texts.join(" "));
-  }, []);
+  const { messages, done } = useTypewriter(texts);
+  const audio = useAudio(texts.join(" "), true);
 
   return (
     <div>
+      {audio.element}
       <p className="font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi
       </p>
