@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { usePerson } from "@/store/PersonContext";
 import styles from "./id.module.css";
-import { Button, Divider } from "@theme";
+import { Button, CloseButton, Divider, Icon } from "@theme";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -49,6 +49,10 @@ const Home: NextPage = () => {
 
   const heading = () => (
     <div className={styles.heading + " px-10 pt-7 text-heading"}>
+      <CloseButton
+        onClick={() => router.push("/scanning")}
+        className={styles.close}
+      />
       <span>{workInformation.metadata.name}</span>
       <span>{workInformation.metadata.text}</span>
       <span>{workInformation.metadata.date}</span>
