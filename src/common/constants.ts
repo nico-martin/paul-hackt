@@ -5,3 +5,4 @@ export const CREATIONS = {
 };
 
 export const URL = "https://www.liliundich.ch/";
+export const NFC_PREFIX = "lili-und-ich // ";
