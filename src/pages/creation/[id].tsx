@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { usePerson } from '@/store/PersonContext';
 import styles from './id.module.css';
-import { Button } from '@theme';
+import { Button, Divider } from '@theme';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   const [workInformation, setWorkInformation] = useState<{
     message: string;
     question: { text: string; options: Array<{ value: string; text: string }> };
-    metadata: { name: string; date: number; image: string; text: string }
+    metadata: { name: string; date: number; image: string; text: string };
   }>();
   const [questionValue, setQuestionValue] = useState<string>();
   const [questionAnswer, setQuestionAnswer] = useState<{
@@ -48,74 +48,85 @@ const Home: NextPage = () => {
     });
   }, [questionValue]);
 
+  const heading = () => (
+    <div className={styles.heading + ' px-10 pt-7 text-heading'}>
+      <span>{workInformation.metadata.name}</span>
+      <span>{workInformation.metadata.text}</span>
+      <span>{workInformation.metadata.date}</span>
+    </div>
+  );
+
   if (!questionAnswer) {
-    return workInformation && (
-      <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F] relative">
-        <div className={styles.heading + ' px-10 pt-7 text-heading'}>
-          <span>{workInformation.metadata.name}</span>
-          <span>{workInformation.metadata.text}</span>
-          <span>{workInformation.metadata.date}</span>
-        </div>
+    return (
+      workInformation && (
+        <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F] relative">
+          {heading()}
 
-        <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
-          <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
-            <img className="rounded-full aspect-square" src={workInformation.metadata.image} />
+          <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
+            <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
+              <img
+                className="rounded-full aspect-square"
+                src={workInformation.metadata.image}
+              />
+            </div>
+            {workInformation && workInformation.message && (
+              <Typewriter messages={[workInformation.message]} />
+            )}
           </div>
-          {workInformation && workInformation.message && (
-            <Typewriter messages={[workInformation.message]} />
-          )}
-        </div>
 
-        <div className="relative">
-          <img src="/logo.svg" className={styles.logo} />
-        </div>
+          <div className="relative">
+            <img src="/logo.svg" className={styles.logo} />
+          </div>
 
-        <div className="py-7 px-10 mt-[60px] text-heading">
-          {workInformation && workInformation.question && (
-            <div>
-              {workInformation.question.text}
+          <div className="py-7 px-10 mt-[60px] text-heading">
+            {workInformation && workInformation.question && (
+              <div>{workInformation.question.text}</div>
+            )}
+          </div>
+
+          {workInformation && (
+            <div className={styles.buttons + ' py-7 px-10 bg-olive'}>
+              <Button
+                className={styles.button}
+                onClick={() => {
+                  setQuestionValue(workInformation.question.options[0].value);
+                }}
+                disabled={loading}
+                loading={loading}
+              >
+                {workInformation.question.options[0].text}
+              </Button>
+              <Button
+                className={styles.button}
+                onClick={() => {
+                  setQuestionValue(workInformation.question.options[1].value);
+                }}
+                disabled={loading}
+                loading={loading}
+              >
+                {workInformation.question.options[1].text}
+              </Button>
             </div>
           )}
         </div>
-
-        {workInformation && (
-          <div className={styles.buttons + ' py-7 px-10 bg-olive'}>
-            <Button
-              className={styles.button}
-              onClick={() => {
-                setQuestionValue(workInformation.question.options[0].value);
-              }}
-              disabled={loading}
-              loading={loading}
-            >
-              {workInformation.question.options[0].text}
-            </Button>
-            <Button
-              className={styles.button}
-              onClick={() => {
-                setQuestionValue(workInformation.question.options[1].value);
-              }}
-              disabled={loading}
-              loading={loading}
-            >
-              {workInformation.question.options[1].text}
-            </Button>
-          </div>
-        )}
-      </div>
+      )
     );
   } else {
     return (
-      <div className="h-screen max-w-2xl mx-auto main bg-olive p-7 text-[#004E5F]">
-        <div className={styles.heading}>{router.query.id}</div>
-        <hr className={styles.spacer} />
-        {questionAnswer && questionAnswer.additionalText && (
-          <Typewriter messages={[questionAnswer.additionalText]} />
-        )}
+      <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F]">
+        {heading()}
+        <div className="px-10">
+          <Divider />
+        </div>
 
-        {questionAnswer && questionAnswer.message && (
-          <Typewriter messages={[questionAnswer.message]} />
-        )}
+        <div className="px-10 py-7">
+          {questionAnswer && questionAnswer.additionalText && (
+            <Typewriter
+              messages={[questionAnswer.additionalText, questionAnswer.message]}
+            />
+          )}
+          <img src="/logo.svg" className="w-[60px] h-[60px] mt-8 ml-auto" />
+        </div>
       </div>
     );
   }
