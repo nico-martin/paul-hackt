@@ -114,17 +114,23 @@ const Home: NextPage = () => {
     return (
       <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F]">
         {heading()}
-        <div className="px-10">
-          <Divider />
-        </div>
 
         <div className="px-10 py-7">
-          {questionAnswer && questionAnswer.additionalText && (
-            <Typewriter
-              messages={[questionAnswer.additionalText, questionAnswer.message]}
-            />
-          )}
-          <img src="/logo.svg" className="w-[60px] h-[60px] mt-8 ml-auto" />
+          <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
+            <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
+              <img
+                className="rounded-full aspect-square"
+                src={workInformation.metadata.image}
+              />
+            </div>
+            {questionAnswer && (
+              <Typewriter messages={[questionAnswer.additionalText, questionAnswer.message]} />
+            )}
+          </div>
+
+          <div className="relative">
+            <img src="/logo.svg" className={styles.logo} />
+          </div>
         </div>
       </div>
     );

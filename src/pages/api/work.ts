@@ -18,9 +18,10 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
       image: 'https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg',
       name: 'Park bei Lu',
     },
-    adultPrompt: 'Nachfolgend einige Informationen über das berühmte Bild "Park bei Lu" von "Paul Klee". Sandra ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besucht. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie dieses spezifische Werk Klees ihr eine tiefe und dennoch zugängliche Erfahrung bieten kann, ohne auf spezifische Kunstbegriffe oder Maltechniken einzugehen. Beschränke dich auf vier Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse Sandra nicht. Gehe nicht auf Sachen ein, die Sandra nicht kennt. Sandra steht vor dem Kunstwerk "Park bei Lu"',
+    adultPrompt:
+      'Nachfolgend einige Informationen über das berühmte Bild "Park bei Lu" von "Paul Klee". {name} ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besucht. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie dieses spezifische Werk Klees ihr eine tiefe und dennoch zugängliche Erfahrung bieten kann, ohne auf spezifische Kunstbegriffe oder Maltechniken einzugehen. Beschränke dich auf vier Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse {name} nicht. Gehe nicht auf Sachen ein, die {name} nicht kennt. {name} steht vor dem Kunstwerk "Park bei Lu"',
     childPrompt:
-      'Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für Sandra verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».',
+      'Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für {name} verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».',
     question: 'Magst du, wie die Natur im Bild verfremdet dargestellt wird?',
     questionId: '1',
     options: [
@@ -62,28 +63,30 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
   {
     id: 'story',
     metadata: {
-      date: 1938,
-      text: 'Natur',
-      image: 'https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg',
-      name: 'Puppe',
+      date: 1920,
+      text: 'verschiedene Materialien',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Paul_Klee_Puppe_Ohne_Titel_%28Schwarzer_Geist%29.jpg/754px-Paul_Klee_Puppe_Ohne_Titel_%28Schwarzer_Geist%29.jpg?20191226183730',
+      name: 'Puppen',
     },
-    information: ``,
+    information: `Paul Klee hat diese Handpuppen gemacht und damit auch Geschichten für seinen Sohn Felix erfunden.`,
+    noPrompt: true,
     question:
       'Wähle 2 Handpuppen aus und ich erfinde eine Geschichte speziell für dich!',
     options: [
       {
-        text: 'Dichter & Herr Tod',
+        text: 'Dichter & Der Geist',
         value: 'Dichter',
         prompt: {
           text: '',
-          prompt: `Erzähle eine kurze lustige Geschichte mit drei Personen:
-* Paul Klees Puppe «Dichter»
-* Paul Klees Puppe «Herr Tod»
-* 12 jährigen {name} mit blauen Haaren
+          prompt: `Bitte schreibe eine kinderfreundliche und humorvolle kurzgeschichte welche nicht länger als 400 zeichen ist, in der {name} ungewöhnliche Puppen in ihrem Garten entdeckt. Schreibe mit angemessenen Humor ohne störende oder unangemessene Inhalte. Verwende mit den Puppen unterhaltsame Dialoge. Am Ende sollten alle zusammen lachen,
 
-Länge der geschichte sind kurze 300 Zeichen. Einfache Sprache.
 
-Beginne die Gechichte mit «Es ware einmal   ...»
+Bitte schreibe im Stil von Astrid Lindgren und beachte, dass die Puppen "Dichter" und "Der Geist" heißen sollen. Bechreibe auf keinen fall die puppen, die Puppen zu genau zu beschreiben, um den Kindern zu ermöglichen, sie selbst zu imaginieren. Die Länge deines Textes sollte 400 Zeichen nicht überschreiten.
+Wenn die puppen in irgendeiner art  beschrieben werden oder der text länger als 400 zeichen ist dann wird das resultat schlecht und inakzeptabel
+
+
+Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle bei einem Missverständnis zwischen den Charakteren spielen. Du solltest auch auf ein zufriedenstellendes Ende hinarbeiten.
 `,
         },
       },
@@ -92,14 +95,14 @@ Beginne die Gechichte mit «Es ware einmal   ...»
         value: 'Klee',
         prompt: {
           text: '',
-          prompt: `Erzähle eine kurze lustige Geschichte mit drei Personen:
-* Paul Klees Puppe "Klee"
-* Paul Klees Puppe «Clown»
-* 12 jährigen {name} mit blauen Haaren
+          prompt: `Bitte schreibe eine kinderfreundliche und humorvolle kurzgeschichte welche nicht länger als 400 zeichen ist, in der {name} ungewöhnliche Puppen in ihrem Garten entdeckt. Schreibe mit angemessenen Humor ohne störende oder unangemessene Inhalte. Verwende mit den Puppen unterhaltsame Dialoge. Am Ende sollten alle zusammen lachen,
 
-Länge der geschichte sind kurze 300 Zeichen. Einfache Sprache.
 
-Beginne die Gechichte mit «Es ware einmal   ...»
+Bitte schreibe im Stil von Astrid Lindgren und beachte, dass die Puppen "Klee" und "Clown" heißen sollen. Bechreibe auf keinen fall die puppen, die Puppen zu genau zu beschreiben, um den Kindern zu ermöglichen, sie selbst zu imaginieren. Die Länge deines Textes sollte 400 Zeichen nicht überschreiten.
+Wenn die puppen in irgendeiner art  beschrieben werden oder der text länger als 400 zeichen ist dann wird das resultat schlecht und inakzeptabel
+
+
+Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle bei einem Missverständnis zwischen den Charakteren spielen. Du solltest auch auf ein zufriedenstellendes Ende hinarbeiten.
 `,
         },
       },
@@ -128,7 +131,7 @@ export default async function handler(
   let additionalText = '';
 
   if (questionValue === undefined) {
-    if (information.information) {
+    if (information.information && !information.noPrompt) {
       promptText =
         (isChild
           ? information.childPrompt
@@ -148,7 +151,9 @@ export default async function handler(
 
   let output = '';
 
-  if (information.information || questionValue) {
+  if (information.noPrompt && !questionValue) {
+    output = information.information;
+  } else if (information.information || questionValue) {
     output = await prompt(promptText, { name, isChild });
     audioText += output;
   }
