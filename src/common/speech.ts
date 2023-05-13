@@ -1,9 +1,7 @@
 const sdk = require('microsoft-cognitiveservices-speech-sdk');
 const { Buffer } = require('buffer');
-const { PassThrough } = require('stream');
-const fs = require('fs');
 
-export default async (text) => {
+export default async (text: string): Promise<Buffer> => {
   // convert callback function to promise
   return new Promise((resolve, reject) => {
     const speechConfig = sdk.SpeechConfig.fromSubscription(
@@ -19,14 +17,14 @@ export default async (text) => {
 
     synthesizer.speakTextAsync(
       text,
-      (result) => {
+      (result: any) => {
         const { audioData } = result;
 
         synthesizer.close();
 
         resolve(Buffer.from(audioData));
       },
-      (error) => {
+      (error: any) => {
         synthesizer.close();
         reject(error);
       }

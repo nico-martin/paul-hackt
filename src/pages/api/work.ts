@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prompt from '../../openai';
-import textToSpeech from '../../common/speech';
 
 const works = [
   {
@@ -162,15 +161,9 @@ export default async function handler(
     };
   }
 
-  const stream = await textToSpeech(audioText);
-  console.log();
-
   return res.status(200).json({
     additionalText,
     message: output,
     question,
-    audio: `data:audio/mpeg;base64,${Buffer.from(stream, 'binary').toString(
-      'base64'
-    )}`,
   });
 }
