@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import prompt from '../../openai';
+import { NextApiRequest, NextApiResponse } from "next";
+import prompt from "../../openai";
 
 const works = [
   {
-    id: 'park-bei-lu',
+    id: "park-bei-lu",
     information: `
     ## Park bei Lu., 1938
 Das Bild «Park bei Lu.» entstand - so lässt es der Titel vermuten - auf Anregung durch einen Natureindruck, den Klee in einem Park nahe Luzern hatte.
@@ -14,22 +14,22 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
 `,
     metadata: {
       date: 1938,
-      text: 'Natur',
-      image: 'https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg',
-      name: 'Park bei Lu',
+      text: "Natur",
+      image: "https://www.kunstkopie.de/kunst/paul_klee_11025/park_bei_lu.jpg",
+      name: "Park bei Lu",
     },
     adultPrompt:
       'Nachfolgend einige Informationen über das berühmte Bild "Park bei Lu" von "Paul Klee". {name} ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besucht. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie dieses spezifische Werk Klees ihr eine tiefe und dennoch zugängliche Erfahrung bieten kann, ohne auf spezifische Kunstbegriffe oder Maltechniken einzugehen. Beschränke dich auf vier Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse {name} nicht. Gehe nicht auf Sachen ein, die {name} nicht kennt. {name} steht vor dem Kunstwerk "Park bei Lu"',
     childPrompt:
-      'Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für {name} verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».',
-    question: 'Magst du, wie die Natur im Bild verfremdet dargestellt wird?',
-    questionId: '1',
+      "Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für {name} verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».",
+    question: "Magst du, wie die Natur im Bild verfremdet dargestellt wird?",
+    questionId: "1",
     options: [
       {
-        text: 'Nee Videos mag ich besser',
-        value: 'true',
+        text: "Nee Videos mag ich besser",
+        value: "true",
         prompt: {
-          text: 'Du magst also VIDEO besser. Verstehe ich wirklich gut. …',
+          text: "Du magst also VIDEO besser. Verstehe ich wirklich gut. …",
           prompt: `Nachfolgend ein paar Informationen über das schaffen von  «Paul Klee» als Musiker.
 Ergänze den Satz: «Paul Klee hat auch mit Filmen Experimente gemacht und ». Schreibe danach noch einen weiterne satz. Der Text ist für ein Kind, 14 Jahre alt. Der Text wird vom Audioguide in einem Museum gesprochen. Sprich als Audioguide.
 
@@ -40,10 +40,10 @@ Musik ist fester Bestandteil in Paul Klees Leben: Als Jugendlicher spielt er im 
         },
       },
       {
-        text: 'Passt schon',
-        value: 'false',
+        text: "Passt schon",
+        value: "false",
         prompt: {
-          text: 'Freut mich, dass dir die Bilder gefallen.',
+          text: "Freut mich, dass dir die Bilder gefallen.",
           prompt: `Nachfolgend ein paar Informationen über das Schaffen von  «Paul Klee» als Sammler.
 Ergänze den Satz: «Er hat viel Inspiration für die Bilder aus seiner Sammlung genommen. ». Schreibe danach noch einen weiteren Satz. Der Text ist für ein Kind, 14 Jahre alt. Der Text wird vom Audioguide in einem Museum gesprochen. Die Sammlung sieht man nicht. Sprich als Audioguide.
 
@@ -61,24 +61,24 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
 `,
   },
   {
-    id: 'story',
+    id: "story",
     metadata: {
       date: 1920,
-      text: 'verschiedene Materialien',
+      text: "verschiedene Materialien",
       image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Paul_Klee_Puppe_Ohne_Titel_%28Schwarzer_Geist%29.jpg/754px-Paul_Klee_Puppe_Ohne_Titel_%28Schwarzer_Geist%29.jpg?20191226183730',
-      name: 'Puppen',
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Paul_Klee_Puppe_Ohne_Titel_%28Schwarzer_Geist%29.jpg/754px-Paul_Klee_Puppe_Ohne_Titel_%28Schwarzer_Geist%29.jpg?20191226183730",
+      name: "Puppen",
     },
     information: `Paul Klee hat diese Handpuppen gemacht und damit auch Geschichten für seinen Sohn Felix erfunden.`,
     noPrompt: true,
     question:
-      'Wähle 2 Handpuppen aus und ich erfinde eine Geschichte speziell für dich!',
+      "Wähle 2 Handpuppen aus und ich erfinde eine Geschichte speziell für dich!",
     options: [
       {
-        text: 'Dichter & Der Geist',
-        value: 'Dichter',
+        text: "Dichter & Der Geist",
+        value: "Dichter",
         prompt: {
-          text: '',
+          text: "",
           prompt: `Bitte schreibe eine kinderfreundliche und humorvolle kurzgeschichte welche nicht länger als 400 zeichen ist, in der {name} ungewöhnliche Puppen in ihrem Garten entdeckt. Schreibe mit angemessenen Humor ohne störende oder unangemessene Inhalte. Verwende mit den Puppen unterhaltsame Dialoge. Am Ende sollten alle zusammen lachen,
 
 
@@ -91,10 +91,10 @@ Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle 
         },
       },
       {
-        text: 'Klee & Clown',
-        value: 'Klee',
+        text: "Klee & Clown",
+        value: "Klee",
         prompt: {
-          text: '',
+          text: "",
           prompt: `Bitte schreibe eine kinderfreundliche und humorvolle kurzgeschichte welche nicht länger als 400 zeichen ist, in der {name} ungewöhnliche Puppen in ihrem Garten entdeckt. Schreibe mit angemessenen Humor ohne störende oder unangemessene Inhalte. Verwende mit den Puppen unterhaltsame Dialoge. Am Ende sollten alle zusammen lachen,
 
 
@@ -114,12 +114,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const name = req.query['name'] as string;
-  const isChild = req.query['isChild'] === 'true';
-  const id = req.query['id'] as string;
-  const questionValue = req.query['questionValue'];
+  const name = req.query["name"] as string;
+  const isChild = req.query["isChild"] === "true";
+  const id = req.query["id"] as string;
+  const questionValue = req.query["questionValue"];
 
-  let audioText = '';
+  let audioText = "";
 
   const information = works.find((work) => work.id === id);
 
@@ -127,8 +127,8 @@ export default async function handler(
     res.status(404).send({});
   }
 
-  let promptText = '';
-  let additionalText = '';
+  let promptText = "";
+  let additionalText = "";
 
   if (questionValue === undefined) {
     if (information.information && !information.noPrompt) {
@@ -136,7 +136,7 @@ export default async function handler(
         (isChild
           ? information.childPrompt
           : information.adultPrompt
-        ).replaceAll('{name}', name) +
+        ).replaceAll("{name}", name) +
         information.information +
         information.endPrompt;
     }
@@ -145,11 +145,11 @@ export default async function handler(
     let option = information.options.find(
       (option) => option.value === questionValue
     );
-    promptText = option.prompt.prompt.replaceAll('{name}', name);
+    promptText = option.prompt.prompt.replaceAll("{name}", name);
     additionalText = option.prompt.text;
   }
 
-  let output = '';
+  let output = "";
 
   if (information.noPrompt && !questionValue) {
     output = information.information;

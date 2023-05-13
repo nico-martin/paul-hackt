@@ -7,29 +7,14 @@ const StepZero: React.FC<{
   setLanguage: () => void;
 }> = ({ setLanguage }) => {
   const [, setPerson] = usePerson();
-  const [languageIsSet, setLanguageIsSet] = useState(false);
 
   const waitASecondAndThenSwitch = (lang: string) => {
-    setLanguageIsSet(true);
     setPerson({ lang });
-    setTimeout(() => {
-      setLanguage();
-    }, 1000);
+    setLanguage();
   };
 
   // we either have the liist of language buttons or we have the hello screen
-  return languageIsSet ? (
-    <div>
-      <p className="font-bold text-heading text-teal">
-        Paul Klee Rundgang mit LiLi
-        <br />
-        Kennen lernen
-      </p>
-      <Divider className="mt-8" />
-      <h1 className={styles.heading}>Hallo!</h1>
-      <img src="/logo.svg" className={styles.logo} />
-    </div>
-  ) : (
+  return (
     <div>
       <p className="font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi

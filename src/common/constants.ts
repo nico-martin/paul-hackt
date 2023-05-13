@@ -4,4 +4,4 @@ export const CREATIONS = {
   puppen: "Puppen",
 };
 
-export const URL = "paul-hackt // ";
+export const URL = "https://www.liliundich.ch/";

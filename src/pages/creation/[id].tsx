@@ -1,10 +1,10 @@
-import type { NextPage } from 'next';
-import Typewriter from '@/components/Typewriter';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { usePerson } from '@/store/PersonContext';
-import styles from './id.module.css';
-import { Button, Divider } from '@theme';
+import type { NextPage } from "next";
+import Typewriter from "@/components/Typewriter";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { usePerson } from "@/store/PersonContext";
+import styles from "./id.module.css";
+import { Button, Divider } from "@theme";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
   }, [questionValue]);
 
   const heading = () => (
-    <div className={styles.heading + ' px-10 pt-7 text-heading'}>
+    <div className={styles.heading + " px-10 pt-7 text-heading"}>
       <span>{workInformation.metadata.name}</span>
       <span>{workInformation.metadata.text}</span>
       <span>{workInformation.metadata.date}</span>
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
           </div>
 
           {workInformation && (
-            <div className={styles.buttons + ' py-7 px-10 bg-olive'}>
+            <div className={styles.buttons + " py-7 px-10 bg-olive"}>
               <Button
                 className={styles.button}
                 onClick={() => {
@@ -124,7 +124,12 @@ const Home: NextPage = () => {
               />
             </div>
             {questionAnswer && (
-              <Typewriter messages={[questionAnswer.additionalText, questionAnswer.message]} />
+              <Typewriter
+                messages={[
+                  questionAnswer.additionalText,
+                  questionAnswer.message,
+                ]}
+              />
             )}
           </div>
 
