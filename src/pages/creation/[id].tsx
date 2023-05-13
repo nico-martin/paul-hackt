@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { usePerson } from "@/store/PersonContext";
 import styles from "./id.module.css";
 import { Button, Divider } from "@theme";
+import Logo from "@/components/Logo";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -74,7 +75,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="relative">
-            <img src="/logo.svg" className={styles.logo} />
+            <Logo className={styles.logo} />
           </div>
 
           <div className="py-7 px-10 mt-[60px] text-heading">
@@ -134,7 +135,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="relative">
-            <img src="/logo.svg" className={styles.logo} />
+            <Logo className={styles.logo} />
           </div>
         </div>
       </div>

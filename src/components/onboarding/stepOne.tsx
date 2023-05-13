@@ -5,6 +5,7 @@ import useAudio from "@common/useAudio";
 import cn from "@common/classnames";
 import Typewriter from "@/components/Typewriter";
 import styles from "./StepOne.module.css";
+import Logo from "@/components/Logo";
 //const messages = ["Hallo, ich bin Lilly.", "Verrätst du mir deinen Namen?"];
 
 const messagesOne = ["Hallo,", "ich bin LiLi!"];
@@ -39,7 +40,7 @@ const StepOne: React.FC<{
           setDone={() => setIntroDone(true)}
           speed={50}
         />
-        <img src="/logo.svg" className={cn(styles.logo)} />
+        <Logo className={cn(styles.logo)} />
         {introDone && (
           <Typewriter
             messages={messagesTwo}
