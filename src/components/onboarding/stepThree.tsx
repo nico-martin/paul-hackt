@@ -11,7 +11,7 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
 
   const texts = [introText, "Jetzt gehts in die Ausstellung!"];
   const { messages, done } = useTypewriter(texts);
-
+  const [, setPerson] = usePerson();
   const audio = useAudio(texts.join(" "));
 
   const { setUpScanner } = useScanner();
@@ -36,7 +36,7 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
             onClick={async () => {
               setLoading(true);
               await setUpScanner();
-              await router.push("scanning");
+              setPerson({ isReady: true });
             }}
             loading={loading}
           >

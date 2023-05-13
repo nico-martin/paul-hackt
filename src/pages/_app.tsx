@@ -4,12 +4,23 @@ import Head from "next/head";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import styles from "./_app.module.css";
-import { Provider as PersonContextProvider } from "@/store/PersonContext";
+import {
+  Provider as PersonContextProvider,
+  usePerson,
+} from "@/store/PersonContext";
 import { Provider as ScannerContextProvider } from "@/store/ScannerContext";
 import { Quicksand, PT_Serif } from "next/font/google";
 
+import Intro from "./index";
+import { useRouter } from "next/router";
+
 const quicksand = Quicksand({ subsets: ["latin"] });
 const ptSerif = PT_Serif({ weight: ["400", "700"], subsets: ["latin"] });
+
+const C = ({ Component, pageProps }: AppProps) => {
+  const [user] = usePerson();
+  return user.isReady ? <Component {...pageProps} /> : <Intro />;
+};
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -32,7 +43,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <PersonContextProvider>
         <ScannerContextProvider>
           <main className={styles.main}>
-            <Component {...pageProps} />
+            {/* @ts-ignore*/}
+            <C Component={Component} pageProps={pageProps} />
           </main>
         </ScannerContextProvider>
       </PersonContextProvider>

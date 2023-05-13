@@ -5,6 +5,7 @@ import StepOne from "@/components/onboarding/stepOne";
 import StepTwo from "@/components/onboarding/stepTwo";
 import StepThree from "../components/onboarding/stepThree";
 import styles from "./index.module.css";
+import { useRouter } from "next/router";
 
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -12,10 +13,17 @@ const Home = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [greetingsText, setGreetingsText] = useState<string>("");
   const [introText, setIntroText] = useState<string>("");
-
+  const router = useRouter();
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
+
+  React.useEffect(() => {
+    console.log("person.isReady", person.isReady);
+    if (person.isReady) {
+      router.push("scanning");
+    }
+  }, [person.isReady]);
 
   const setName = (name: string) => {
     setPerson({ name });
