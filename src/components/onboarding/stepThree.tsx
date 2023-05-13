@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import useAudio from "@common/useAudio";
 import cn from "@common/classnames";
 import Typewriter from "@/components/Typewriter";
+import styles from "./StepThree.module.css";
 
 const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -25,8 +26,12 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
         Paul Klee Rundgang mit LiLi
       </p>
 
-      <div className="bg-[#004E5F] px-10 py-10 is--dark relative">
-        <Typewriter messages={texts} setDone={() => setDone(true)} />
+      <div
+        className={cn(styles.content, "bg-[#004E5F] py-10 is--dark relative")}
+      >
+        <div className="relative">
+          <Typewriter messages={texts} setDone={() => setDone(true)} />
+        </div>
       </div>
       <div className="text-right mt-2">
         <img
