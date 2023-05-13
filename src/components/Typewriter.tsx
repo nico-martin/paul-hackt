@@ -21,7 +21,6 @@ const Typewriter: React.FC<{
 
   React.useLayoutEffect(() => {
     if (ref.current && ref.current.clientHeight > 0) {
-      console.log(ref.current.clientHeight, ref.current.offsetHeight, ref.current.scrollHeight)
       setHeight(ref.current.clientHeight);
     }
   });
