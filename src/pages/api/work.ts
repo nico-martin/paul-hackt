@@ -100,7 +100,7 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
 `,
   },
   {
-    id: 'story',
+    id: 'puppen',
     metadata: {
       date: 1920,
       text: 'verschiedene Materialien',
