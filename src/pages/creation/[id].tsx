@@ -20,7 +20,6 @@ const Home: NextPage = () => {
     message: string;
   }>();
   const [loading, setLoading] = useState(false);
-  const [typewriterDone, setTypewriterDone] = useState(false);
 
   useEffect(() => {
     if (!router.query.id) {
