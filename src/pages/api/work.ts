@@ -23,10 +23,13 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
     childPrompt:
       "Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für {name} verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».",
     question: "Magst du, wie die Natur im Bild verfremdet dargestellt wird?",
+    questionAdult:
+      "Die abstrakte Darstellung der Natur in diesem Bild war im 20. Jahrhundert sehr modern. Ist diese statische Form heute noch angebracht?",
     questionId: "1",
     options: [
       {
         text: "Nee Videos mag ich besser",
+        adultText: "Im 21. Jahrhundert passt Video besser",
         value: "true",
         prompt: {
           text: "Du magst also VIDEO besser. Verstehe ich wirklich gut. …",
@@ -41,6 +44,7 @@ Musik ist fester Bestandteil in Paul Klees Leben: Als Jugendlicher spielt er im 
       },
       {
         text: "Passt schon",
+        adultText: "Bild ist noch immer super!",
         value: "false",
         prompt: {
           text: "Freut mich, dass dir die Bilder gefallen.",
@@ -76,6 +80,8 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
     options: [
       {
         text: "Dichter & Der Geist",
+        // @ts-ignore
+        adultText: null,
         value: "Dichter",
         prompt: {
           text: "",
@@ -92,6 +98,7 @@ Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle 
       },
       {
         text: "Klee & Clown",
+        adultText: null,
         value: "Klee",
         prompt: {
           text: "",
@@ -161,9 +168,12 @@ export default async function handler(
   let question = undefined;
   if (questionValue === undefined) {
     question = {
-      text: information.question,
+      text: isChild ? information.question : information.questionAdult,
       options: information.options.map((option) => {
-        return { text: option.text, value: option.value };
+        return {
+          text: isChild || !option.adultText ? option.text : option.adultText,
+          value: option.value,
+        };
       }),
     };
   }
