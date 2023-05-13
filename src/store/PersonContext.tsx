@@ -12,6 +12,7 @@ interface Person {
   mood: MOOD;
   lang: string;
   isReady: boolean;
+  isTalking: boolean; // Add this
 }
 
 const defaultValues: Person = {
@@ -21,6 +22,7 @@ const defaultValues: Person = {
   mood: null,
   lang: "",
   isReady: false,
+  isTalking: false, // And this
 };
 
 interface ContextInterface {
@@ -49,7 +51,7 @@ export const usePerson = (): [
   const { person, setPerson } = React.useContext<ContextInterface>(Context);
 
   const set = (person: Partial<Person>) => {
-    setPerson((oldPersion) => ({ ...oldPersion, ...person }));
+    setPerson((oldPerson) => ({ ...oldPerson, ...person }));
   };
 
   return [person, set];

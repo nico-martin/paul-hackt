@@ -6,6 +6,7 @@ import { Button } from "@theme";
 import styles from "./StepTwo.module.css";
 import useAudio from "@common/useAudio";
 import cn from "@common/classnames";
+import Logo from "@/components/Logo";
 const StepTwo: React.FC<{
   setIsChild: (idChild: boolean) => void;
   loading: boolean;
@@ -29,7 +30,7 @@ const StepTwo: React.FC<{
           <p key={i}>{m}</p>
         ))}
       </div>
-      <img src="/logo.svg" className={cn(styles.logo)} />
+      <Logo className={styles.logo} />
       {done && (
         <div className={styles.buttons}>
           <Button
