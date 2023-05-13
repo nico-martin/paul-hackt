@@ -11,7 +11,6 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [person, setPerson] = usePerson();
   const [currentStep, setCurrentStep] = useState(0);
-  const [greetingsText, setGreetingsText] = useState<string>("");
   const [introText, setIntroText] = useState<string>("");
   const router = useRouter();
   const handleNextStep = () => {
@@ -27,13 +26,7 @@ const Home = () => {
 
   const setName = (name: string) => {
     setPerson({ name });
-    setLoading(true);
-    fetch(`/api/greetings?name=${name}`).then(async (response) => {
-      const json = await response.json();
-      setGreetingsText(json.message);
-      setLoading(false);
-      handleNextStep();
-    });
+    handleNextStep();
   };
 
   const setIsChild = (isChild: boolean) => {
@@ -66,11 +59,7 @@ const Home = () => {
       {currentStep === 0 && <StepZero setLanguage={handleNextStep} />}
       {currentStep === 1 && <StepOne setName={setName} loading={loading} />}
       {currentStep === 2 && (
-        <StepTwo
-          greetingsText={greetingsText}
-          setIsChild={setIsChild}
-          loading={loading}
-        />
+        <StepTwo setIsChild={setIsChild} loading={loading} />
       )}
       {currentStep === 3 && <StepThree introText={introText} />}
     </div>

@@ -1,16 +1,6 @@
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
-}
 .logo {
   margin: 0 auto 1rem auto;
   width: 250px;
-}
-
-.button {
 }
 
 .text {

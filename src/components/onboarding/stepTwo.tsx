@@ -5,19 +5,16 @@ import useTypewriter from "@common/useTypewriter";
 import { Button } from "@theme";
 import styles from "./StepTwo.module.css";
 import useAudio from "@common/useAudio";
+import cn from "@common/classnames";
 const StepTwo: React.FC<{
-  greetingsText: string;
   setIsChild: (idChild: boolean) => void;
   loading: boolean;
-}> = ({ greetingsText, setIsChild, loading }) => {
+}> = ({ setIsChild, loading }) => {
   const [person, setPerson] = usePerson();
 
-  const texts = [
-    greetingsText,
-    "Meine letzte Frage, bevor wir in die Ausstellung gehen. Wer bist du?",
-  ];
+  const texts = ["Bist du erwachsen?"];
 
-  const { messages, done } = useTypewriter(texts);
+  const { messages, done } = useTypewriter(texts, 50);
   const audio = useAudio(texts.join(" "), true);
 
   return (
@@ -32,6 +29,7 @@ const StepTwo: React.FC<{
           <p key={i}>{m}</p>
         ))}
       </div>
+      <img src="/logo.svg" className={cn(styles.logo)} />
       {done && (
         <div className={styles.buttons}>
           <Button
@@ -39,16 +37,19 @@ const StepTwo: React.FC<{
             onClick={() => setIsChild(true)}
             disabled={loading}
             loading={loading && person.isChild}
+            full
+            big
           >
-            Ich bin ein Kind
+            Jep
           </Button>
           <Button
-            className={styles.button}
+            className={cn(styles.button)}
+            full
             onClick={() => setIsChild(false)}
             disabled={loading}
             loading={loading && !person.isChild}
           >
-            Ich bin Erwachsen
+            Nope
           </Button>
         </div>
       )}
