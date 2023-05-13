@@ -5,6 +5,7 @@ import { Button } from "@theme";
 import { useScanner } from "@/store/ScannerContext";
 import { useRouter } from "next/router";
 import { useTextToSpeech } from "@/store/TextToSpeechContext";
+import Typewriter from "@/components/Typewriter";
 
 const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -14,10 +15,6 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
     introText,
     "Jetzt gehts in die Ausstellung!",
   ]);
-
-  React.useEffect(() => {
-    readText([introText, "Jetzt gehts in die Ausstellung!"].join(" "));
-  }, []);
 
   const { setUpScanner } = useScanner();
   const router = useRouter();

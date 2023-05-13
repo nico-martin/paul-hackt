@@ -22,6 +22,7 @@ export const Provider = ({ children }: { children: any }) => {
     if (!synth) {
       return;
     }
+    return;
 
     synth.cancel();
 

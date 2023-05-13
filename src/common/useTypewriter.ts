@@ -1,10 +1,11 @@
 import React from "react";
 import { clearInterval } from "timers";
-import message from "@/theme/message/Message";
+
+const defaultSpeed = 20;
 
 const useTypewriter = (
   messages: Array<string>,
-  speed: number = 20
+  speed: number = null
 ): { messages: Array<string>; done: boolean } => {
   const [newMessages, setNewMessages] = React.useState<Array<string>>(
     new Array(messages.length).fill("")
@@ -34,7 +35,7 @@ const useTypewriter = (
 
             return currentNewMessages.map((n) => n);
           }),
-        speed
+        speed || defaultSpeed
       );
 
       return () => {
