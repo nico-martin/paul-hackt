@@ -36,6 +36,7 @@ const useAudio = (
   React.useEffect(() => {
     if (ref?.current) {
       ref.current.playbackRate = 1.2;
+      ref.current.muted = false
     }
   }, [ref, audio]);
 
