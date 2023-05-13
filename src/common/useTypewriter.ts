@@ -1,5 +1,4 @@
 import React from 'react';
-import { clearInterval } from 'timers';
 
 const defaultSpeed = 20;
 
@@ -12,39 +11,45 @@ const useTypewriter = (
   );
   const [done, setDone] = React.useState<boolean>(false);
 
+
   React.useEffect(() => {
-    if (JSON.stringify(newMessages) !== JSON.stringify(messages)) {
-      const i = window.setInterval(
-        () =>
-          setNewMessages((currentNewMessages) => {
-            const lineToProcess = currentNewMessages.findIndex((message, i) => {
-              return message.length !== messages[i].length;
-            });
 
-            if (lineToProcess === -1) {
-              setDone(true);
-              return currentNewMessages;
-            }
+    const i = window.setInterval(
+      () =>
+        setNewMessages((currentNewMessages) => {
+          const lineToProcess = currentNewMessages.findIndex((message, i) => {
+            return message.length !== messages[i].length;
+          });
 
-            const carToAdd = messages[lineToProcess].slice(
-              currentNewMessages[lineToProcess].length
-            )[0];
+          if (lineToProcess === -1) {
+            clearInterval(i);
+            return currentNewMessages;
+          }
 
-            currentNewMessages[lineToProcess] =
-              currentNewMessages[lineToProcess] + carToAdd;
+          const carToAdd = messages[lineToProcess].slice(
+            currentNewMessages[lineToProcess].length
+          )[0];
 
-            return currentNewMessages.map((n) => n);
-          }),
-        speed || defaultSpeed
-      );
+          currentNewMessages[lineToProcess] =
+            currentNewMessages[lineToProcess] + carToAdd;
 
-      return () => {
-        try {
-          i && clearInterval(i);
-        } catch (e) {}
-      };
-    }
+          return [...currentNewMessages];
+        }),
+      speed || defaultSpeed
+    );
+
+    return () => {
+      try {
+        clearInterval(i);
+      } catch (e) {}
+    };
   }, []);
+
+  React.useEffect(() => {
+    if (JSON.stringify(newMessages) === JSON.stringify(messages)) {
+      setDone(true);
+    }
+  }, [newMessages, messages]);
 
   return { messages: newMessages, done };
 };

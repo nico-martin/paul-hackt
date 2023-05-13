@@ -8,11 +8,12 @@ const useAudio = (
   const [loading, setLoading] = React.useState<boolean>(false);
   const [audio, setAudio] = React.useState<string>(null);
   const ref = React.useRef<HTMLAudioElement>(null);
-  const [person] = usePerson();
+  const [person, setPerson] = usePerson();
 
   const play = () =>
     new Promise<boolean>((resolve) => {
       setLoading(true);
+      setPerson({ isTalking: true }); // Start talking when the play starts
       fetch(`/api/speech?lang=${person.lang}`, {
         method: "POST",
         body: msg,
@@ -21,6 +22,10 @@ const useAudio = (
         setLoading(true);
         setAudio(json.audio);
         resolve(true);
+      }).catch((error) => {
+        console.error("Audio fetch error: ", error);
+        setPerson({ isTalking: false }); // Stop talking when error occurs
+        resolve(false);
       });
     });
 
@@ -34,8 +39,12 @@ const useAudio = (
     }
   }, [ref, audio]);
 
+  const handleEnded = () => {
+    setPerson({ isTalking: false }); // Stop talking when the play stops
+  };
+
   const element = audio ? (
-    <audio hidden autoPlay={true} ref={ref}>
+    <audio hidden autoPlay={true} ref={ref} onEnded={handleEnded} onError={handleEnded}>
       <source src={audio} />
     </audio>
   ) : null;

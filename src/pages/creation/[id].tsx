@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { usePerson } from "@/store/PersonContext";
 import styles from "./id.module.css";
 import { Button, CloseButton, Divider, Icon } from "@theme";
-import LoadingScreen from '@/components/LoadingScreen';
+import useAudio from "@common/useAudio";
+import LoadingScreen from "@/components/LoadingScreen";
+import Logo from "@/components/Logo";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -56,6 +58,21 @@ const Home: NextPage = () => {
     });
   };
 
+  const audio = useAudio(workInformation?.message || "");
+  const audioTwo = useAudio(
+    (questionAnswer?.additionalText || "") +
+      " " +
+      (questionAnswer?.message || "")
+  );
+
+  useEffect(() => {
+    questionAnswer && audioTwo.play();
+  }, [questionAnswer]);
+
+  useEffect(() => {
+    workInformation?.message && audio.play();
+  }, [workInformation?.message]);
+
   const heading = () => (
     <div className={styles.heading + " px-10 pt-7 text-heading"}>
       <CloseButton
@@ -77,7 +94,7 @@ const Home: NextPage = () => {
       workInformation && (
         <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F] relative">
           {heading()}
-
+          {audio.element}
           <div className="bg-[#004E5F] px-10 py-16 is--dark relative">
             <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
               <img
@@ -91,7 +108,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="relative">
-            <img src="/logo.svg" className={styles.logo} />
+            <Logo className={styles.logo} />
           </div>
 
           <div className="py-7 px-10 mt-[60px] text-heading">
@@ -101,13 +118,13 @@ const Home: NextPage = () => {
           </div>
 
           {workInformation && (
-            <div className={styles.buttons + ' py-7 px-10 bg-olive'}>
+            <div className={styles.buttons + " py-7 px-10 bg-olive"}>
               <Button
                 className={styles.button}
                 onClick={() => {
                   buttonClick(workInformation.question.options[0].value, true);
                 }}
-                disabled={loadingFirst}
+                disabled={loadingFirst || loadingSecond}
                 loading={loadingFirst}
               >
                 {workInformation.question.options[0].text}
@@ -117,7 +134,7 @@ const Home: NextPage = () => {
                 onClick={() => {
                   buttonClick(workInformation.question.options[1].value, false);
                 }}
-                disabled={loadingSecond}
+                disabled={loadingFirst || loadingSecond}
                 loading={loadingSecond}
               >
                 {workInformation.question.options[1].text}
@@ -131,7 +148,7 @@ const Home: NextPage = () => {
     return (
       <div className="h-screen max-w-2xl mx-auto main bg-olive text-[#004E5F]">
         {heading()}
-
+        {audioTwo.element}
         <div className="px-10 py-7">
           <div className="bg-[#004E5F] px-10 py-16 is--dark relative mx-[-40px]">
             <div className="w-[60px] h-[60px] absolute right-[40px] top-[-30px]">
@@ -151,7 +168,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="relative">
-            <img src="/logo.svg" className={styles.logo} />
+            <Logo className={styles.logo} />
           </div>
         </div>
       </div>

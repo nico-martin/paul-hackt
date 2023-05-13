@@ -6,6 +6,7 @@ import { useScanner } from "@/store/ScannerContext";
 import { useRouter } from "next/router";
 import useAudio from "@common/useAudio";
 import cn from "@common/classnames";
+import Logo from "@/components/Logo";
 import Typewriter from "@/components/Typewriter";
 import styles from "./StepThree.module.css";
 
@@ -15,14 +16,14 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
 
   const texts = [introText, "Jetzt gehts in die Ausstellung!"];
   const [, setPerson] = usePerson();
-  const audio = useAudio(texts.join(" "));
+  const audio = useAudio(texts.join(" "), true);
 
   const { setUpScanner } = useScanner();
 
   return (
     <div>
       {audio.element}
-      <p className="font-bold text-heading text-teal mb-8">
+      <p className="mb-8 font-bold text-heading text-teal">
         Paul Klee Rundgang mit LiLi
       </p>
 
@@ -33,11 +34,8 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
           <Typewriter messages={texts} setDone={() => setDone(true)} />
         </div>
       </div>
-      <div className="text-right mt-2">
-        <img
-          src="/logo.svg"
-          className="w-[60px] inline-block mt-[-35px] z-10 relative"
-        />
+      <div className="mt-2 text-right">
+        <Logo className="w-[60px] inline-block mt-[-35px] z-10 relative" />
       </div>
       {done && (
         <div className="mt-12">

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import styles from "./scanning.module.css";
 import { CREATIONS, NFC_PREFIX } from "@common/constants";
 import { SCANNER_TYPES, useScanner } from "@/store/ScannerContext";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Scanning: NextPage = () => {
   const { type, nfcReader } = useScanner();
