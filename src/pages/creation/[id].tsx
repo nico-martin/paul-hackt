@@ -11,6 +11,7 @@ const Home: NextPage = () => {
   const [person, _] = usePerson();
   const [workInformation, setWorkInformation] = useState<{
     message: string;
+    audio: string;
     question: { text: string; options: Array<{ value: string; text: string }> };
   }>();
   const [questionValue, setQuestionValue] = useState<string>();
@@ -49,6 +50,11 @@ const Home: NextPage = () => {
   if (!questionAnswer) {
     return (
       <div className="h-screen max-w-2xl mx-auto main bg-olive p-7 text-[#004E5F]">
+        {workInformation && workInformation.audio && (
+          <audio hidden autoPlay={true}>
+            <source src={workInformation.audio} />
+          </audio>
+        )}
         <div className={styles.heading}>{router.query.id}</div>
         <hr className={styles.spacer} />
         {workInformation && workInformation.message && (

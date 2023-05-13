@@ -24,9 +24,7 @@ export default async (text) => {
 
         synthesizer.close();
 
-        const bufferStream = new PassThrough();
-        bufferStream.end(Buffer.from(audioData));
-        resolve(bufferStream);
+        resolve(Buffer.from(audioData));
       },
       (error) => {
         synthesizer.close();
