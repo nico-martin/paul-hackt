@@ -16,7 +16,7 @@ const StepThree: React.FC<{ introText: string }> = ({ introText }) => {
 
   const texts = [introText, "Jetzt gehts in die Ausstellung!"];
   const [, setPerson] = usePerson();
-  const audio = useAudio(texts.join(" "));
+  const audio = useAudio(texts.join(" "), true);
 
   const { setUpScanner } = useScanner();
 
