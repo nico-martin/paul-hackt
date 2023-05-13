@@ -11,22 +11,9 @@ const Logo: React.FC<{ className?: string }> = ({ className }) => {
     if (person.isTalking) {
       let counter = 0;
       logoInterval = setInterval(() => {
-        switch (counter % 3) {
-          case 0:
-            setLogo("/logo.svg");
-            break;
-          case 1:
-            setLogo("/logo1.svg");
-            break;
-          case 2:
-            setLogo("/logo2.svg");
-            break;
-          default:
-            setLogo("/logo.svg");
-            break;
-        }
+        setLogo(counter % 2 === 0 ? "/logo.svg" : "/logo1.svg");
         counter++;
-      }, 300);
+      }, 400);
     } else {
       setLogo("/logo.svg");
     }
