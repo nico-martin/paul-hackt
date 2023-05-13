@@ -35,9 +35,9 @@ const StepTwo: React.FC<{
         <div className={styles.buttons}>
           <Button
             className={styles.button}
-            onClick={() => setIsChild(true)}
+            onClick={() => setIsChild(false)}
             disabled={loading}
-            loading={loading && person.isChild}
+            loading={loading && !person.isChild}
             full
             big
           >
@@ -46,9 +46,9 @@ const StepTwo: React.FC<{
           <Button
             className={cn(styles.button)}
             full
-            onClick={() => setIsChild(false)}
+            onClick={() => setIsChild(true)}
             disabled={loading}
-            loading={loading && !person.isChild}
+            loading={loading && person.isChild}
           >
             Nope
           </Button>
