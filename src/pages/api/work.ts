@@ -15,7 +15,7 @@ interface IWork {
   question: string;
   questionAdult?: string;
   endPrompt?: string;
-  noPrompt?: boolean;
+  noPromptForChild?: boolean;
   options: Array<{
     text: string;
     adultText?: string;
@@ -47,7 +47,7 @@ Park Bei Lu (oder „Park in der Nähe von lu“) ist ein Gemälde von Schweizer
       name: 'Park bei Lu',
     },
     adultPrompt:
-      'Nachfolgend einige Informationen über das berühmte Bild "Park bei Lu" von "Paul Klee". {name} ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besucht. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie dieses spezifische Werk Klees ihr eine tiefe und dennoch zugängliche Erfahrung bieten kann, ohne auf spezifische Kunstbegriffe oder Maltechniken einzugehen. Beschränke dich auf vier Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse {name} nicht. Gehe nicht auf Sachen ein, die {name} nicht kennt. {name} steht vor dem Kunstwerk "Park bei Lu"',
+      'Nachfolgend einige Informationen über das berühmte Bild "Park bei Lu" von "Paul Klee". {name} ist eine kunstinteressierte Erwachsene, die das "Zentrum Paul Klee" besucht. Sie hat einen allgemeinen Überblick über Kunst, aber keine spezifischen Kenntnisse von Kunstgeschichte oder Maltechniken. Beschreibe, wie dieses spezifische Werk Klees ihr eine tiefe und dennoch zugängliche Erfahrung bieten kann, ohne auf spezifische Kunstbegriffe oder Maltechniken einzugehen. Beschränke dich auf {length} Sätze. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse {name} nicht. Gehe nicht auf Sachen ein, die {name} nicht kennt. {name} steht vor dem Kunstwerk "Park bei Lu"',
     childPrompt:
       'Nachfolgend ein paar Informationen über das bekannte Bild  «Park bei Lu» von «Paul Klee». Fasse diese für {name}, 14 Jahre zusammen. {name} kennt keine Begriffe aus der Kunstgeschichte und keine Maltechniken. Erwähne keine Städtenamen. Jahreszahlen und Jahreszeiten sind für {name} verwirrend. Beschränke dich auf 2 Sätze. Der Text wird vom Audioguide «Lily» gesprochen. Sprich als «Lily». {name} steht vor dem Kunstwerk «Park bei Lu».',
     question: 'Magst du, wie die Natur im Bild verfremdet dargestellt wird?',
@@ -109,15 +109,31 @@ Beginne die Antwort mit «Das Gemälde Park bei Lu. von Paul Klee zeigt   ...».
       name: 'Puppen',
     },
     information: `Paul Klee hat diese Handpuppen gemacht und damit auch Geschichten für seinen Sohn Felix erfunden.`,
-    noPrompt: true,
+    noPromptForChild: true,
+    adultPrompt: `{name}, eine kunstinteressierte Erwachsene mit einem allgemeinen Überblick über Kunst, aber ohne spezifische Kenntnisse von Kunstgeschichte oder Handwerkstechniken, steht im "Zentrum Paul Klee" vor einer Vitrine, die einige der Handpuppen enthält, die Paul Klee für seinen Sohn Felix schuf. Sie betrachtet insbesondere die Puppen "Frau Tod" und "Der kleine Tod", sowie die Puppe des "Barbiers von Bagdad" und die Puppe, die Klee selbst darstellt. Beschreibe als "Lily", der Audioguide, wie diese Puppen und ihre Geschichte {name} eine tiefe und doch zugängliche Erfahrung bieten können, ohne auf spezifische Kunstbegriffe oder Handwerkstechniken einzugehen. Beschränke dich auf vier Sätze. Begrüße {name} nicht und gehe nicht auf Dinge ein, die {name} nicht kennt.
+
+> Nachfolgend ein paar Informationen über Paul Klees puppen. 
+
+Paul Klee schuf zwischen 1916 und 1925 rund 50 Handpuppen aus Gips und Alltagsgegenständen für seinen Sohn Felix. Diese Puppen, die teilweise auf Opernfiguren, Familienmitgliedern und Freunden basieren, wurden zwar nicht im Bauhaus-Katalog aufgeführt, sind aber dennoch Teil seines künstlerischen Erbes. Besonders auffallend sind die Puppe von Klee selbst, mit einem aus Rinderknochen geschnitzten Kopf und überproportionalen Augen, und die Puppe des Barbiers von Bagdad, mit einem Turban und den Borsten eines Malerpinsels.
+
+Auch die Puppen Frau Tod und Der kleine Tod, beide mit weißen Köpfen und Gewändern, sind bemerkenswert. Frau Tod hat ein grimmiges Gesicht mit schwarzen und roten Ornamenten, während Der kleine Tod große, schwarze Augenhöhlen und ein Totenkopflächeln aufweist.
+
+Von den ursprünglich 50 Puppen sind 30 im Zentrum Paul Klee in Bern erhalten. 2008 wurden von 11 Puppen detailgetreue Replikate angefertigt, die in Puppentheateraufführungen verwendet wurden, um Klees Leben als Maler zu erzählen.
+
+Klee's Beschäftigung mit dem Puppenspiel ging über das private Spielzeug für seinen Sohn hinaus und beeinflusste auch seine künstlerische Arbeit am Bauhaus.
+`,
     question:
       'Wähle 2 Handpuppen aus und ich erfinde eine Geschichte speziell für dich!',
+    questionAdult:
+      'Die Puppen bringen viele Techniken und Interessen von Paul Klee zusammen. Lass uns kurz schauen, welche andere Eigenschaften ihn als Künstler ausmachten.',
     options: [
       {
         text: 'Dichter & Der Geist',
+        adultText: 'Klee der Entdecker',
         value: 'Dichter',
         prompt: {
           text: '',
+          adultText: '',
           prompt: `Bitte schreibe eine kinderfreundliche und humorvolle kurzgeschichte welche nicht länger als 400 zeichen ist, in der {name} ungewöhnliche Puppen in ihrem Garten entdeckt. Schreibe mit angemessenen Humor ohne störende oder unangemessene Inhalte. Verwende mit den Puppen unterhaltsame Dialoge. Am Ende sollten alle zusammen lachen,
 
 
@@ -127,10 +143,14 @@ Wenn die puppen in irgendeiner art  beschrieben werden oder der text länger als
 
 Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle bei einem Missverständnis zwischen den Charakteren spielen. Du solltest auch auf ein zufriedenstellendes Ende hinarbeiten.
 `,
+          adultPrompt: `Fasse nachfolgenden Text in 3 Sätzen zusammen. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse Sandra nicht. Gehe nicht auf Sachen ein, die Sandra nicht kennt.
+---
+Paul Klee experimentiert nicht nur mit künstlerischen Techniken, sondern geht auch erfinderisch mit seinen Malutensilien um: Markknochen, Muschelhälften, zerbrochene Tassen oder Eierbecher dienen ihm als Malgefässe, einfache Holzleisten werden zu Stempeln, indem Klee einen Nagel in das eine Ende schlägt. Pinsel fertigt er aus Haaren in unterschiedlicher Länge und Farbe und steckt sie entweder in Federkeile oder bindet sie mit Schnur oder Draht an einem Stück Holz fest.`,
         },
       },
       {
         text: 'Klee & Clown',
+        adultText: 'Klee der Genaue',
         value: 'Klee',
         prompt: {
           text: '',
@@ -142,6 +162,10 @@ Wenn die puppen in irgendeiner art  beschrieben werden oder der text länger als
 
 
 Deine Antwort sollte eine amüsante Situation vermitteln, in der sie eine Rolle bei einem Missverständnis zwischen den Charakteren spielen. Du solltest auch auf ein zufriedenstellendes Ende hinarbeiten.
+`,
+          adultPrompt: `Fasse nachfolgenden Text in 3 Sätzen zusammen. Der Text wird vom Audioguide "Lily" gesprochen. Sprich als "Lily". Begrüsse Sandra nicht. Gehe nicht auf Sachen ein, die Sandra nicht kennt.
+---
+Paul Klee dokumentiert und verwaltet sein künstlerisches Schaffen mit akribischer Genauigkeit. Sein wichtigstes Instrument ist der insgesamt rund 9000 Werke umfassende Katalog, den er von 1911 bis 1940 führt. Lieferlisten für Galeristen dienen ihm zur Buchhaltung seiner Verkäufe und Ausstellungstätigkeit. Ab 1925 kategorisiert er seine farbigen Blätter in acht Preisklassen und führt eine «Sonderklasse» für unverkäufliche Werke ein.
 `,
         },
       },
@@ -168,7 +192,10 @@ export default async function handler(
   let additionalText = '';
 
   if (questionValue === undefined) {
-    if (information.information && !information.noPrompt) {
+    if (
+      information.information &&
+      (!information.noPromptForChild || !isChild)
+    ) {
       promptText =
         (isChild
           ? information.childPrompt
@@ -193,9 +220,10 @@ export default async function handler(
 
   let output = '';
 
-  if (information.noPrompt && !questionValue) {
+  if (information.noPromptForChild && isChild && !questionValue) {
     output = information.information;
   } else if (information.information || questionValue) {
+    console.log(promptText);
     output = await prompt(promptText, { name, isChild });
   }
 
