@@ -1,15 +1,14 @@
 import React from "react";
 import type { NextPage } from "next";
-import { Icon, InputSelect } from "@theme";
+import { Button, Icon, InputSelect } from "@theme";
 import { useRouter } from "next/router";
 
 import styles from "./scanning.module.css";
 import { CREATIONS, NFC_PREFIX } from "@common/constants";
 import { SCANNER_TYPES, useScanner } from "@/store/ScannerContext";
-import LoadingScreen from "@/components/LoadingScreen";
 
 const Scanning: NextPage = () => {
-  const { type, nfcReader } = useScanner();
+  const { type, nfcReader, setType } = useScanner();
   const router = useRouter();
 
   React.useEffect(() => {
@@ -38,10 +37,7 @@ const Scanning: NextPage = () => {
     <div className={styles.root}>
       {type === SCANNER_TYPES.NONE ? (
         <div className={styles.notSupported}>
-          <p>
-            Der NFC Reader wird auf diesem Gerät nicht unterstützt. Bitte Wähle
-            ein Werk aus der Liste aus:
-          </p>
+          <p>Bitte Wähle ein Werk aus der Liste aus:</p>
           <InputSelect
             name="creation"
             options={{ "": "Select...", ...CREATIONS }}
@@ -49,14 +45,45 @@ const Scanning: NextPage = () => {
               e.target.value && router.push(`creation/${e.target.value}`);
             }}
           />
+          {nfcReader && (
+            <p>
+              Oder nutze den Scanner:
+              <br />
+              <Button
+                appearance="none"
+                full
+                onClick={() => setType(SCANNER_TYPES.NFC)}
+              >
+                NFC-Scanner
+              </Button>
+            </p>
+          )}
         </div>
-      ) : type == SCANNER_TYPES.NFT ? (
+      ) : type == SCANNER_TYPES.NFC ? (
         <React.Fragment>
           <Icon icon="nfc" className={styles.icon} />
           <div className={styles.loader}>
             <div className={styles.circle} />
             <div className={styles.circle} />
             <div className={styles.circle} />
+          </div>
+          <div className={styles.description}>
+            <p className={styles.descTop}>
+              Du kannst dich jetzt im Museum bewegen und wenn du mehr über ein
+              Werk erfahren möchtest, halte dein Gerät an den Lili-Tag.
+            </p>
+            <p className={styles.descBottom}>
+              Möchtest du statdessen das Kunstwerk aus der Liste auswählen?
+              <br />
+              <br />
+              <Button
+                appearance="light"
+                full
+                onClick={() => setType(SCANNER_TYPES.NONE)}
+              >
+                Liste
+              </Button>
+            </p>
           </div>
         </React.Fragment>
       ) : null}

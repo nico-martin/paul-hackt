@@ -1,0 +1,8 @@
+.text {
+  display: block;
+  margin-top: 2rem;
+  font-family: var(--font-heading);
+  font-weight: bold;
+  max-width: 70%;
+  text-align: center;
+}

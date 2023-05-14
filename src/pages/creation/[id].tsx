@@ -8,6 +8,7 @@ import { Button, CloseButton, Divider, Icon } from "@theme";
 import useAudio from "@common/useAudio";
 import LoadingScreen from "@/components/LoadingScreen";
 import Logo from "@/components/Logo";
+import { CREATIONS } from "@common/constants";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -86,6 +87,15 @@ const Home: NextPage = () => {
   );
 
   if (pageLoading) {
+    if (router.query.id.toString() in CREATIONS) {
+      return (
+        <LoadingScreen
+          text={`Kunstwerk "${
+            CREATIONS[router.query.id.toString()]
+          }" wird geladen`}
+        />
+      );
+    }
     return <LoadingScreen />;
   }
 

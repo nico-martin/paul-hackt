@@ -1,7 +1,7 @@
 import React from "react";
 
 export enum SCANNER_TYPES {
-  NFT = "nft",
+  NFC = "nfc",
   NONE = "none",
 }
 
@@ -27,7 +27,7 @@ export const Provider = ({ children }: { children: any }) => {
 
   React.useEffect(() => {
     if ("NDEFReader" in window) {
-      setType(SCANNER_TYPES.NFT);
+      setType(SCANNER_TYPES.NFC);
     } else {
       setType(SCANNER_TYPES.NONE);
     }
@@ -52,6 +52,7 @@ export const Provider = ({ children }: { children: any }) => {
 
 export const useScanner = (): {
   type: SCANNER_TYPES;
+  setType: (type: SCANNER_TYPES) => void;
   setUpScanner: () => Promise<void>;
   nfcReader: NDEFReader;
 } => {
@@ -60,5 +61,6 @@ export const useScanner = (): {
     type: context.type,
     setUpScanner: context.setUpScanner,
     nfcReader: context.nfcReader,
+    setType: context.setType,
   };
 };

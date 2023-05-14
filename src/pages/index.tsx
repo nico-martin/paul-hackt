@@ -6,6 +6,7 @@ import StepTwo from "@/components/onboarding/stepTwo";
 import StepThree from "../components/onboarding/stepThree";
 import styles from "./index.module.css";
 import { useRouter } from "next/router";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);

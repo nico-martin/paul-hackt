@@ -1,4 +1,4 @@
-export const CREATIONS = {
+export const CREATIONS: Record<string, string> = {
   "park-bei-lu": "Park bei Lu",
   //"insula-dulcamara": "Insula dulcamara",
   puppen: "Puppen",
